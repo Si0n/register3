@@ -1,8 +1,52 @@
+
 <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><?=$tablePanelHeadingText?></div>
-    <div class="panel-body">
-    </div>
-<?php
-include('./../lib/ListAction.php');
-?>
+
+        <div class="panel-heading"><?=$tablePanelHeadingText?></div>
+<div class="panel-body">
+</div>
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Пол</td>
+        <td>Группа</td>
+        <td>Средний Бал</td>
+        <td>Местный/Приезжий</td>
+        <td>Год Рождения</td>
+    </tr>
+    <?php for ($k = $noteNumber - $countPerPage; $k < $noteNumber; $k++):
+        if (!isset($data[$k]['Name'])):continue;
+        endif ?>
+        <tr>
+            <td> <?=$data[$k]['Name'] ?></td>
+            <td><?= $data[$k]['Surname'] ?></td>
+            <td><?=$data[$k]['Sex'] ?></td>
+            <td><?=$data[$k]['GroupNumber'] ?></td>
+            <td><?=$data[$k]['Mark'] ?></td>
+            <td><?=$data[$k]['Local'] ?></td>
+            <td><?=$data[$k]['BirthDate'] ?></td>
+        </tr>
+    <?php endfor ?>
+</table>
+</div>
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="<?=$firstURL ?>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <?php if($previousPage >= $firstPage):?>
+            <li><a href="<?=$previousURL?>"><?=$previousPage?></a></li>
+        <?php endif ?>
+        <li><a href="<?=$curURL?>"><?=$page?></a></li>
+        <?php
+        if ($nextPage <= $pageCount):?>
+            <li><a href="<?=$nextURL?>"><?=$nextPage?></a></li>
+        <?php endif ?>
+        <li><a href="<?=$lastURL?>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

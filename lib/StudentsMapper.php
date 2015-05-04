@@ -69,9 +69,7 @@ class StudentsMapper
         $reg          = "%$string%";
         $srchStudents->bindParam(":string", $reg);
         $srchStudents->execute();
-        while ($students = $srchStudents->fetch()) {
-            $stud[] = $students;
-        }
+        $stud = $srchStudents->fetchAll();
         return $stud;
     }
 

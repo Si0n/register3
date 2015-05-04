@@ -59,5 +59,5 @@ if (isset($_POST['submit']))
          }
 
      }
-    header("Location: http://localhost/php/students/template/main.php?page=registration");
+    header("Location: http://localhost/php/register3/index.php?page=registration");
     }

@@ -1,4 +1,4 @@
-<form id="register" method="post" action="./../lib/reg.php">
+<form id="register" method="post" action="./lib/reg.php">
     <div class="row">
         <div class="col-xs-6 col-sm-6">
             <div class="input-group input-group-lg">
