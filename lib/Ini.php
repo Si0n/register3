@@ -1,15 +1,10 @@
 <?php
-class Ini
-{
-    public function printPage($fileName)
-    {
-       include './../temp/' . $fileName . '.php';
-
-    }
-    public function loadLibs()
-    {
-        require_once(__DIR__ . './PDO.php');
-        require_once(__DIR__ . './functions.php');
-
-    }
-}
+// загрузка функций
+require_once(__DIR__ . './functions.php');
+//автолоадер классов
+spl_autoload_register(function ($class) {
+    include $class . '.php';
+});
+// загрузка конфига pdo и создание экземпляра
+require('config.php');
+$pdo = new PDO($dsn, $user, $pass, $opt);

@@ -1,9 +1,9 @@
 <?php
-include './template/header.php';
 include('./lib/check.php');
 $include = $_GET['page'];
 $incAction = $_GET['action'];
 include './template/main.php';
+include './lib/ini.php';
 switch ($include) :
     case 'registration' : include ('./template/register.php'); break;
     case 'dashboard' : include ('./template/dashboard.php'); break;
@@ -17,3 +17,4 @@ endswitch;
 if (isset($_GET['search'])) {
     include('./lib/list_action.php');
 }
+include './template/footer.php';

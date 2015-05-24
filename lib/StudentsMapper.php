@@ -58,7 +58,6 @@ class StudentsMapper
 
     public function searchFromStudents($string = '')
     {
-        $stud = array();
         if ($string === '') {
             $sql = 'SELECT * FROM students ORDER BY GroupNumber';
         } else {

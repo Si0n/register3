@@ -12,6 +12,10 @@ require_once(__DIR__ . './functions.php');
     else {
         $currentURL = '?page=list&p={page}';
     }
+    if (isset($text))
+    {
+$tablePanelHeadingText .= $text;
+    }
 
     $nextPage = $page + 1;
     $previousPage = $page - 1;

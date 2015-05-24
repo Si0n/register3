@@ -5,3 +5,4 @@
     <title>Сайт Абитуриентов</title>
     <link href="./css/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body>

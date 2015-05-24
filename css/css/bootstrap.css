@@ -117,7 +117,6 @@ textarea {
   margin: 0;
   font: inherit;
   color: inherit;
-
 }
 button {
   overflow: visible;
@@ -144,7 +143,6 @@ input::-moz-focus-inner {
 }
 input {
   line-height: normal;
-
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -2923,7 +2921,7 @@ select[multiple].form-group-lg .form-control {
   .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn,
   .form-inline .input-group .form-control {
-    width: 100%;
+    width: auto;
   }
   .form-inline .input-group > .form-control {
     width: 100%;

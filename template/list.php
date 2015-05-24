@@ -4,6 +4,7 @@
         <div class="panel-heading"><?=$tablePanelHeadingText?></div>
 <div class="panel-body">
 </div>
+    <?php if (!isset($text)) : ?>
 <table class="table">
     <tr>
         <td>Имя</td>
@@ -29,7 +30,7 @@
     <?php endfor ?>
 </table>
 </div>
-<nav>
+<nav align="center">
     <ul class="pagination">
         <li>
             <a href="<?=$firstURL ?>" aria-label="Previous">
@@ -50,3 +51,4 @@
         </li>
     </ul>
 </nav>
+<?php endif ?>
