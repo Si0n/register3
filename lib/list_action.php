@@ -7,5 +7,4 @@ if (count($data) == 0)
 {
    $text = ' <br> Нет совпадений в базе студентов.';
 }
-include 'paginator.php';
-include './template/list.php';
+require 'paginator.php';

@@ -1,20 +1,13 @@
 <?php
-include('./lib/check.php');
 $include = $_GET['page'];
-$incAction = $_GET['action'];
-include './template/main.php';
-include './lib/ini.php';
+require './template/main.php';
+require './scripts/check_student.php';
 switch ($include) :
     case 'registration' : include ('./template/register.php'); break;
     case 'dashboard' : include ('./template/dashboard.php'); break;
     case 'list' : include ('./lib/list_action.php'); break;
 endswitch;
-switch ($incAction) :
-    case 'edit' : include './template/edit.php' ; break;
-    case 'inspect' : include './template/inspect.php' ; break;
-
-endswitch;
 if (isset($_GET['search'])) {
     include('./lib/list_action.php');
 }
-include './template/footer.php';
+require './template/footer.php';

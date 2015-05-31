@@ -1,4 +1,3 @@
-
 <div class="panel panel-default">
 
         <div class="panel-heading"><?=$tablePanelHeadingText?></div>
@@ -15,7 +14,7 @@
         <td>Местный/Приезжий</td>
         <td>Год Рождения</td>
     </tr>
-    <?php for ($k = $noteNumber - $countPerPage; $k < $noteNumber; $k++):
+    <?php for ($k; $k < $noteNumber; $k++):
         if (!isset($data[$k]['Name'])):continue;
         endif ?>
         <tr>
@@ -32,23 +31,29 @@
 </div>
 <nav align="center">
     <ul class="pagination">
+        <?php if ($firstURL != $curURL) : ?>
         <li>
             <a href="<?=$firstURL ?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <?php if($previousPage >= $firstPage):?>
+        <?php endif;
+
+        if($previousPage >= $firstPage):?>
             <li><a href="<?=$previousURL?>"><?=$previousPage?></a></li>
         <?php endif ?>
         <li><a href="<?=$curURL?>"><?=$page?></a></li>
         <?php
         if ($nextPage <= $pageCount):?>
             <li><a href="<?=$nextURL?>"><?=$nextPage?></a></li>
-        <?php endif ?>
+        <?php endif;
+        if ($lastURL != $curURL) :
+        ?>
         <li><a href="<?=$lastURL?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
+        <?php endif ?>
     </ul>
 </nav>
 <?php endif ?>

@@ -17,7 +17,7 @@
 <form action="" method="get" name="go">
     <div class="col-lg-6">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Поиск среди студентов..." name="search" type="text" size="40">
+            <input type="text" class="form-control" placeholder="Поиск по студентам..." name="search" type="text" size="40">
         </div><!-- /.col-lg-6 -->
     </div>
 </form>

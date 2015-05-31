@@ -41,16 +41,14 @@ class StudentsMapper
 
     public function isPswrdInDB($password)
     {
-        $existedStud = array();
         $sql         = "SELECT * FROM students WHERE pswrd= :pswrd";
         $cpswrd      = $this->db->prepare($sql);
         $cpswrd->bindValue(':pswrd', $password);
         $cpswrd->execute();
-        while ($student = $cpswrd->fetch()) {
-            $existedStud = $student;
-        }
+        $student = $cpswrd->fetchAll();
+
         if (count($cpswrd) > 0) {
-            return $existedStud;
+            return $student;
         } else
             return false;
 

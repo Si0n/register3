@@ -8,3 +8,4 @@ spl_autoload_register(function ($class) {
 // загрузка конфига pdo и создание экземпляра
 require('config.php');
 $pdo = new PDO($dsn, $user, $pass, $opt);
+
