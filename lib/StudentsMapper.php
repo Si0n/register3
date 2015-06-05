@@ -45,8 +45,7 @@ class StudentsMapper
         $cpswrd      = $this->db->prepare($sql);
         $cpswrd->bindValue(':password', $password);
         $cpswrd->execute();
-        $student = $cpswrd->fetchAll();
-
+        $student = $cpswrd->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "student");
         if (count($cpswrd) > 0) {
             return $student;
         } else

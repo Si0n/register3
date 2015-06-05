@@ -17,14 +17,14 @@ class Student
             $data[$key] = trim($value);
         }
 
-        $this->name      = $data['Name'];
-        $this->surname  = $data['Surname'];
-        $this->sex      = $data['Sex'];
-        $this->groupNumber = $data['GroupNumber'];
-        $this->email    = $data['Email'];
-        $this->mark   = $data['Mark'];
-        $this->local     = $data['Local'];
-        $this->birthDate    = $data['BirthDate'];
+        $this->name      = $data['name'];
+        $this->surname  = $data['surname'];
+        $this->sex      = $data['sex'];
+        $this->groupNumber = $data['groupNumber'];
+        $this->email    = $data['email'];
+        $this->mark   = $data['mark'];
+        $this->local     = $data['local'];
+        $this->birthDate    = $data['birthDate'];
     }
     public function getName()
     {

@@ -30,8 +30,9 @@
 <nav align="center">
     <ul class="pagination">
         <?php for($i=1;$i<=$numpages;$i++):?>
-        <li><a href="index.php?page=list&p=<?= $i?> "><?= $i?></a> </li>
+        <li><a href=<?=$link.$i?> "><?= $i?></a> </li>
         <?php endfor; ?>
     </ul>
 </nav>
-<?php endif; ?>
+<?php endif;
+require './template/footer.php';
