@@ -12,7 +12,7 @@ class StudentsMapper
 
     public function saveStudent(Student $student)
     {
-        $STH = $this->db->prepare("INSERT INTO Students (Name, Surname, Sex, GroupNumber, Email, Mark, Local, BirthDate, password) VALUES (:name, :surname, :sex, :groupNumber, :email, :mark, :local, :birthDate, :pswrd);");
+        $STH = $this->db->prepare("INSERT INTO Students (name, surname, sex, groupNumber, email, mark, local, birthDate, password) VALUES (:name, :surname, :sex, :groupNumber, :email, :mark, :local, :birthDate, :password);");
         $STH->bindValue(':password', $student->getPassword());
         $STH->bindValue(':name', $student->getName());
         $STH->bindValue(':surname', $student->getSurname());
@@ -26,7 +26,7 @@ class StudentsMapper
     }
     public function updateStudent(Student $student, $password)
     {
-        $STH = $this->db->prepare("UPDATE `Students` SET `Name`= :name,`Surname`= :surname,`Sex`= :sex,`GroupNumber`= :groupNumber,`Email`= :email,`Mark`= :mark,`Local`= :local,`BirthDate`= :birthDate WHERE pswrd= :pswrd");
+        $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,`sex`= :sex,`groupNumber`= :groupNumber,`email`= :email,`mark`= :mark,`local`= :local,`birthDate`= :birthDate WHERE password= :password");
         $STH->bindValue(':password', $password);
         $STH->bindValue(':name', $student->getName());
         $STH->bindValue(':surname', $student->getSurname());
@@ -86,6 +86,39 @@ class StudentsMapper
         $stud = $srchStudents->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "student");
         return $stud;
     }
+
+    public function isThisEmailInDB($email)
+    {
+
+            $statement = $this->db->prepare("SELECT * FROM students WHERE email= :email");
+            $statement->bindParam(":email", $email);
+            $statement->execute();
+            $students = $statement->fetch();
+
+            if (empty($students)) {
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        }
+        public function isThisEmailAndCookiEinDB($email, $cookie)
+        {
+        $statement = $this->db->prepare("SELECT * FROM students WHERE email= :email AND password= :password");
+        $statement->bindParam(":password", $cookie);
+        $statement->bindParam(":email", $email);
+        $statement->execute();
+        $students = $statement->fetch();
+        if (!empty($students)) {
+            return $students;
+        } else {
+            return $this->isThisEmailInDB($email);
+        }
+
+
+    }
+
+
+
 
 }
 

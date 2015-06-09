@@ -1,5 +1,5 @@
 <?php
-$p =  isset($_GET['p'])   ? htmlProtect( $_GET['p'] ) : 1 ;
+$p =  isset($_GET['p'])   ? intval( $_GET['p'] ) : 1 ;
 $x = 2;
 if ($p > 1)
 {
@@ -7,20 +7,32 @@ if ($p > 1)
 } else {
     $page = 0;
 }
-
-$search = isset($_GET['search'])   ? htmlProtect( $_GET['search'] ) : '' ;
+$link_start = 'index.php?';
+$search = isset($_GET['search'])   ?  $_GET['search'] : '' ;
 if (isset($_GET['search']))
 {
-    $search = htmlProtect( $_GET['search'] );
-    $link = "index.php?search=$search&amp;p=";
+
+    $link = array('search' => $search,
+                  'p' => 'replace');
+    $tablePanelHeadingText = "Результаты поиска: {$search}. ";
+
 } else {
-    $link = 'index.php?page=list&amp;p=';
+    $link = array('page' => 'list',
+                'p' => 'replace');
+    $tablePanelHeadingText = 'Список студентов. ';
 }
+
 $count = $db->getCountInDb($search);
 $students = $db->searchFromStudents($search, $page);
+$pageLinker= $link_start . http_build_query($link) . "\n";
 if (count($students) == 0)
 {
-   $text = ' <br> Нет совпадений в базе студентов.';
+   $text = ' Нет совпадений в базе студентов.';
+    $isSuccessfulSearch = FALSE;
+} else {
+    $text = "Найдено студентов: $count";
+    $isSuccessfulSearch = TRUE;
 }
+$tablePanelHeadingText .= $text;
 $numpages = ceil ($count/2);
 require './template/list.php';

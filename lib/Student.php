@@ -10,6 +10,7 @@ class Student
     protected $local;
     protected $birthDate;
     protected $password;
+    protected $ID;
 
     public function setFields($data)
     {
@@ -25,6 +26,7 @@ class Student
         $this->mark   = $data['mark'];
         $this->local     = $data['local'];
         $this->birthDate    = $data['birthDate'];
+
     }
     public function getName()
     {
@@ -83,48 +85,31 @@ class Student
         $this->password = $code;
         return $code;
     }
-    public function inspectStudent($cookie)
+    public function inspectStudent()
     {
         $err = array();
         if (!preg_match("/^[А-Яа-яЁё]{2,}$/u", $this->name)) {
-            $err['name'] = TRUE;
-        } else {
-            $err['name'] = FALSE;
+            $err['name'] = 'Имя должно содержать только буквы кириллицы';
         }
         if (!preg_match("/^[А-Яа-яЁё]{2,}$/u", $this->surname)) {
-            $err['surname'] = TRUE;
-        } else {
-            $err['surname'] = FALSE;
+            $err['surname'] = 'Фамилия должна содержать только кириллические символы ';
         }
         if (!preg_match("/^(19|20)[0-9]{2}$/u", $this->birthDate)) {
-            $err['birth'] = TRUE;
-        } else {
-            $err['birth'] = FALSE;
+            $err['birth'] = 'Введите год рождения в формате 19(20)XX';
         }
         if (!preg_match("/^.{1,6}$/u", $this->groupNumber)) {
-            $err['group'] = TRUE;
-        } else {
-            $err['group'] = FALSE;
+            $err['group'] = 'Номер группы должен содержать от 1 до 6 символов.';
         }
-        if ($this->mark < 165) {
-            $err['mark'] = TRUE;
-        } else {
-            $err['mark'] = FALSE;
+        if ($this->mark < 165  || $this->mark > 200) {
+            $err['mark'] = "Недостаточно балов, или неверный формат.";
         }
         if (!preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $this->email)) {
-            $err['email'] = TRUE;
-        } else {
-            $err['email'] = FALSE;
-        }
-        if ($this->isThisEmailInDB($cookie)) {
-            $err['emailMatch'] = TRUE;
-        } else {
-            $err['emailMatch'] = FALSE;
+            $err['email'] = 'Проверьте правильность введенного Вами почтового ящика';
         }
         return $err;
     }
 
-    public function isThisEmailInDB($cookie = '')
+    /*public function isThisEmailInDB($cookie = '')
     {
         if ($cookie == '') {
             $statement = $this->pdo->prepare("SELECT * FROM students WHERE email= :email");
@@ -151,7 +136,7 @@ class Student
         }
 
 
-    }
+    }*/
 
 
 }
