@@ -109,7 +109,7 @@ class StudentsMapper
         $statement->execute();
         $students = $statement->fetch();
         if (!empty($students)) {
-            return $students;
+            return FALSE;
         } else {
             return $this->isThisEmailInDB($email);
         }
