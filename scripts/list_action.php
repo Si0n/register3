@@ -1,9 +1,9 @@
 <?php
 $p =  isset($_GET['p'])   ? intval( $_GET['p'] ) : 1 ;
-$x = 2;
+$offset = 2;
 if ($p > 1)
 {
-    $page = $p * $x -2;
+    $page = $p * $offset -2;
 } else {
     $page = 0;
 }
@@ -24,7 +24,7 @@ if (isset($_GET['search']))
 
 $count = $db->getCountInDb($search);
 $students = $db->searchFromStudents($search, $page);
-$pageLinker= $link_start . http_build_query($link) . "\n";
+$pageLinker= $link_start . http_build_query($link);
 if (count($students) == 0)
 {
    $text = ' Нет совпадений в базе студентов.';

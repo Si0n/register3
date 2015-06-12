@@ -1,3 +1,15 @@
+<?php require 'main.php'; ?>
+
+<!-- форма поиска среди зарегистрированных пользователей-->
+<br>
+<form action="" method="get" name="go">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Поиск по студентам..." name="search" type="text" size="40">
+        </div><!-- /.col-lg-6 -->
+    </div>
+</form>
+<br>
 <div class="panel panel-default">
 
     <div class="panel-heading"><?=htmlProtect($tablePanelHeadingText)?></div>
@@ -27,12 +39,18 @@
         <?php endforeach ?>
     </table>
 </div>
+    <?php if ($numpages > 1) : ?>
 <nav align="center">
     <ul class="pagination">
-        <?php for($i=1;$i<=$numpages;$i++):?>
-        <li><a href=<?=str_replace('replace', $i, $pageLinker)?> "><?= $i?></a> </li>
+        <?php for($i=1;$i<=$numpages;$i++):
+            if ($i == $p) : ?>
+                <li class="active"><a href=<?=str_replace('replace', $i, $pageLinker)?>><?= $i?></a> </li>
+                <?php else :?>
+                <li><a href=<?=str_replace('replace', $i, $pageLinker)?>><?= $i?></a> </li>
+                <?php endif; ?>
         <?php endfor; ?>
     </ul>
 </nav>
 <?php endif;
+    endif;
 require './template/footer.php';

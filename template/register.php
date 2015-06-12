@@ -1,5 +1,5 @@
 <?php
-require_once ('header.php');
+require_once ('main.php');
 if (isset($errors))  {
     foreach ($errors as $error) {
         ?>

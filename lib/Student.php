@@ -40,7 +40,12 @@ class Student
 
     public function getSex()
     {
-        return $this->sex;
+        if ($this->sex == 'F')
+        {
+            return 'Женский';
+        } else {
+            return 'Мужской';
+        }
     }
 
     public function getGroupNumber()
@@ -60,7 +65,9 @@ class Student
 
     public function getLocal()
     {
-        return $this->local;
+        if ($this->local == 'N') {
+            return 'Местный';
+        } else return 'Приезжий';
     }
 
     public function getBirthDate()
