@@ -13,7 +13,7 @@ if (isset($_GET['page']) || isset($_GET['search']))
         $include = 'list';
     }
     switch ($include) {
-        case 'registration' : include ('./template/edit.php'); break;
+        case 'registration' : include ('./scripts/form_fill.php'); break;
         case 'dashboard' : include ('./template/dashboard.php'); break;
         case 'list' : include_once('./scripts/list_action.php'); break;
         case 'inspect' : include ('./template/inspect.php'); break;

@@ -16,4 +16,4 @@ if (!isset($stud)) {
             'birthDate' => $student->getBirthDate());
     }
 }
-require_once 'template/edit.php';
+require 'template/edit.php';

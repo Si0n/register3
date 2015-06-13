@@ -71,12 +71,12 @@ class StudentsMapper
 
 
     }
-    public function searchFromStudents($string = '', $offset)
+    public function searchFromStudents($order, $offset, $string = '')
     {
         if ($string === '') {
-            $sql = "SELECT * FROM students ORDER BY ID LIMIT $offset, 2";
+            $sql = "SELECT * FROM students ORDER BY $order LIMIT $offset, 2";
         } else {
-            $sql = "SELECT * FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string ORDER BY ID LIMIT $offset, 2";  // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
+            $sql = "SELECT * FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string ORDER BY $order LIMIT $offset, 2";  // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
 
         }
         $srchStudents = $this->db->prepare($sql);

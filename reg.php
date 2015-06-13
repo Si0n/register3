@@ -65,5 +65,5 @@ if (isset($_POST['submit']))
          }
         $successfulRegister = TRUE;
      }
-    include './template/register.php';
+    include './scripts/form_fill.php';
     }

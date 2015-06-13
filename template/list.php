@@ -18,18 +18,18 @@
     <?php if ($isSuccessfulSearch) : ?>
     <table class="table">
         <tr>
-            <td>Имя</td>
-            <td>Фамилия</td>
-            <td>Пол:Мужской(М)/Женский(F)</td>
-            <td>Группа</td>
-            <td>Средний Бал</td>
-            <td>Местный(L)/Приезжий(N)</td>
-            <td>Год Рождения</td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'name', $pageLinker, $search))?>" role="button">Имя:</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'surname', $pageLinker, $search))?>" role="button">Фамилия:</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'sex', $pageLinker, $search))?>" role="button">Пол:</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'groupNumber', $pageLinker, $search))?>" role="button">Группа:</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'mark', $pageLinker, $search))?>" role="button">Средний балл:</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'local', $pageLinker, $search))?>" role="button">Местный/Приезжий</a></td>
+            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'birthDate', $pageLinker, $search))?>" role="button">Год Рождения:</a></td>
         </tr>
         <?php foreach ($students as $number=>$student): ?>
             <tr>
-                <td><?= htmlProtect($student->getName()) ?></td>
-                <td><?= htmlProtect($student->getSurname()) ?></td>
+                <td><?=htmlProtect($student->getName()) ?></td>
+                <td><?=htmlProtect($student->getSurname()) ?></td>
                 <td><?=htmlProtect($student->getSex()) ?></td>
                 <td><?=htmlProtect($student->getGroupNumber()) ?></td>
                 <td><?=htmlProtect($student->getMark()) ?></td>
@@ -44,9 +44,9 @@
     <ul class="pagination">
         <?php for($i=1;$i<=$numpages;$i++):
             if ($i == $p) : ?>
-                <li class="active"><a href=<?=str_replace('replace', $i, $pageLinker)?>><?= $i?></a> </li>
+                <li class="active"><a href=<?=htmlProtect(getPaginatorLink($i, $order, $pageLinker, $search))?>><?= $i?></a> </li>
                 <?php else :?>
-                <li><a href=<?=str_replace('replace', $i, $pageLinker)?>><?= $i?></a> </li>
+                <li><a href=<?=htmlProtect(getPaginatorLink($i, $order, $pageLinker, $search))?>><?= $i?></a> </li>
                 <?php endif; ?>
         <?php endfor; ?>
     </ul>

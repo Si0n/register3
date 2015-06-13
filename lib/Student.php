@@ -37,8 +37,11 @@ class Student
     {
         return $this->surname;
     }
-
     public function getSex()
+    {
+        return $this->sex;
+    }
+    public function getShowSex()
     {
         if ($this->sex == 'F')
         {
@@ -62,8 +65,11 @@ class Student
     {
         return $this->mark;
     }
-
     public function getLocal()
+    {
+        return $this->local;
+    }
+    public function getShowLocal()
     {
         if ($this->local == 'N') {
             return 'Местный';

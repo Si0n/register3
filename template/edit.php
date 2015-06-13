@@ -1,5 +1,6 @@
 <?php
-require_once'register.php';
+require_once ('header.php');
+require_once 'register.php';
 ?>
 <form id="register" method="post" action="reg.php">
 
