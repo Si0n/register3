@@ -3,16 +3,22 @@ function htmlProtect($in)
 {
     return htmlspecialchars($in, ENT_QUOTES);
 }
-function getPaginatorLink($page, $order, $dynamicLink, $search = FALSE)
+function getPaginatorLink($page, $order, $search = FALSE)
 {
-
-    $staticLink = str_replace('replaceP', $page, str_replace('replaceOrder', $order, $dynamicLink));
-    if ($search)
-    {
-        $staticLink = str_replace('replaceSearch', $search, $staticLink);
+    $link_start = 'index.php?';
+    if ($search) {
+        $link = array(
+            'search' => $search,
+            'order' => $order,
+            'p' => $page
+        );
+    } else {
+        $link = array(
+            'page' => 'list',
+            'order' => $order,
+            'p' => $page
+        );
     }
-    return $staticLink;
-
-
-
+    $pageLinker = $link_start . http_build_query($link);
+    return $pageLinker;
 }

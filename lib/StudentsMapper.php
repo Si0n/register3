@@ -1,15 +1,11 @@
 <?php
 class StudentsMapper
 {
-
     private $db;
     public function __construct(PDO $pdo)
     {
         $this->db = $pdo;
-
     }
-
-
     public function saveStudent(Student $student)
     {
         $STH = $this->db->prepare("INSERT INTO Students (name, surname, sex, groupNumber, email, mark, local, birthDate, password) VALUES (:name, :surname, :sex, :groupNumber, :email, :mark, :local, :birthDate, :password);");
@@ -38,46 +34,36 @@ class StudentsMapper
         $STH->bindValue(':birthDate', $student->getBirthDate());
         $STH->execute();
     }
-
-    public function isPswrdInDB($password)
+    public function getStudentFromDB($password)
     {
-        $sql         = "SELECT * FROM students WHERE password= :password";
-        $cpswrd      = $this->db->prepare($sql);
+        $sql    = "SELECT * FROM students WHERE password= :password";
+        $cpswrd = $this->db->prepare($sql);
         $cpswrd->bindValue(':password', $password);
         $cpswrd->execute();
-        $student = $cpswrd->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "student");
-        if (count($cpswrd) > 0) {
-            return $student;
-        } else
-            return false;
-
+        $cpswrd->setFetchMode(PDO::FETCH_CLASS, "student");
+        $student = $cpswrd->fetch();
+        return $student;
     }
-
     public function getCountInDb($string = '')
     {
         if ($string === '') {
-            $sql = "SELECT * FROM students ORDER BY GroupNumber";
+            $sql = "SELECT COUNT(*) FROM students ORDER BY GroupNumber";
         } else {
-            $sql = "SELECT * FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string";  // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
-
+            $sql = "SELECT COUNT(*) FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string"; // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
         }
         $srchStudents = $this->db->prepare($sql);
         $reg          = "%$string%";
         $srchStudents->bindParam(":string", $reg);
         $srchStudents->execute();
-        $stud = $srchStudents->fetchAll();
-        $count = count($stud);
+        $count = $srchStudents->fetchColumn();
         return $count;
-
-
     }
     public function searchFromStudents($order, $offset, $string = '')
     {
         if ($string === '') {
-            $sql = "SELECT * FROM students ORDER BY $order LIMIT $offset, 2";
+            $sql = "SELECT * FROM students ORDER BY $order LIMIT $offset, 4";
         } else {
-            $sql = "SELECT * FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string ORDER BY $order LIMIT $offset, 2";  // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
-
+            $sql = "SELECT * FROM students WHERE Name LIKE :string or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string ORDER BY $order LIMIT $offset, 4"; // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
         }
         $srchStudents = $this->db->prepare($sql);
         $reg          = "%$string%";
@@ -86,39 +72,4 @@ class StudentsMapper
         $stud = $srchStudents->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "student");
         return $stud;
     }
-
-    public function isThisEmailInDB($email)
-    {
-
-            $statement = $this->db->prepare("SELECT * FROM students WHERE email= :email");
-            $statement->bindParam(":email", $email);
-            $statement->execute();
-            $students = $statement->fetch();
-
-            if (empty($students)) {
-                return FALSE;
-            } else {
-                return TRUE;
-            }
-        }
-        public function isThisEmailAndCookiEinDB($email, $cookie)
-        {
-        $statement = $this->db->prepare("SELECT * FROM students WHERE email= :email AND password= :password");
-        $statement->bindParam(":password", $cookie);
-        $statement->bindParam(":email", $email);
-        $statement->execute();
-        $students = $statement->fetch();
-        if (!empty($students)) {
-            return FALSE;
-        } else {
-            return $this->isThisEmailInDB($email);
-        }
-
-
-    }
-
-
-
-
 }
-

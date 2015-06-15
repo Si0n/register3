@@ -1,28 +1,10 @@
 <?php
+$class2 = "active";
+$class1 = "noactive";
 $p =  isset($_GET['p'])   ? intval( $_GET['p'] ) : 1 ;
-$offset = 2;
-if ($p > 1)
-{
-    $page = $p * $offset -2;
-} else {
-    $page = 0;
-}
-$link_start = 'index.php?';
+$offset = 4; //Количество результатов на страницу
+$page = ($p -1) * $offset;
 $search = isset($_GET['search'])   ?  $_GET['search'] : '' ;
-if (isset($_GET['search']))
-{
-
-    $link = array('search' => 'replaceSearch',
-                  'order' => 'replaceOrder',
-                  'p' => 'replaceP');
-    $tablePanelHeadingText = "Результаты поиска: {$search}. ";
-
-} else {
-    $link = array('page' => 'list',
-                 'order' => 'replaceOrder',
-                'p' => 'replaceP');
-    $tablePanelHeadingText = 'Список студентов. ';
-}
 if (isset($_GET['order']))
 {
     $order = $_GET['order'];
@@ -32,15 +14,13 @@ if (isset($_GET['order']))
 
 $count = $db->getCountInDb($search);
 $students = $db->searchFromStudents($order, $page, $search);
-$pageLinker= $link_start . http_build_query($link);
-if (count($students) == 0)
+if ($count == 0)
 {
-   $text = ' Нет совпадений в базе студентов.';
+    $tablePanelHeadingText = ' Нет совпадений в базе студентов.';
     $isSuccessfulSearch = FALSE;
 } else {
-    $text = "Найдено студентов: $count";
+    $tablePanelHeadingText = "Найдено студентов: $count";
     $isSuccessfulSearch = TRUE;
 }
-$tablePanelHeadingText .= $text;
-$numpages = ceil ($count/2);
+$numpages = ceil ($count/$offset);
 require './template/list.php';
