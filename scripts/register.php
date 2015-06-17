@@ -1,17 +1,18 @@
 <?php
-if (!isset($student)) {
-    $stud = array('name' => '',
-        'surname' => '',
-        'groupNumber' => '',
-        'email' => '',
-        'mark' => '',
-        'birthDate' => '');
+$local = '';
+$localNot = '';
+$male = '';
+$female = '';
+if ($student->getLocal() == $student::RESIDENCE_LOCAL)
+{
+    $local = 'checked';
 } else {
-    $stud = array('name' => $student->getName(),
-        'surname' => $student->getSurname(),
-        'groupNumber' => $student->getGroupNumber(),
-        'email' => $student->getEmail(),
-        'mark' => $student->getMark(),
-        'birthDate' => $student->getBirthDate());
+    $localNot = 'checked';
+}
+if ($student->getSex() == $student::GENDER_FEMALE)
+{
+    $female = 'checked';
+} else {
+    $male = 'checked';
 }
 require 'template/edit.php';

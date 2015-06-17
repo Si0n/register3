@@ -10,7 +10,7 @@ spl_autoload_register(function($class)
     }
 });
 $pdo  = new PDO($dsn, $user, $pass, $opt);
-$data = new DataMapper($pdo); // data mapper(проверка данных при регистрации)
+$studentValidator = new StudentValidator(); // data mapper(проверка данных при регистрации)
 //беру пароль с куки и достает студента который сохранен с этим паролем
 $db   = new StudentsMapper($pdo);
 if (isset($_COOKIE['password'])) {
@@ -21,6 +21,8 @@ if (isset($_COOKIE['password'])) {
     }
 } else {
     $headerMessage = 'Вы ещё не зарегистрированы. Воспользуйтесь регистрацией.';
+    $student = new Student();
+    $student->setFields();
 }
 if (isset($_GET['search'])) {
     include_once('./scripts/list_action.php');

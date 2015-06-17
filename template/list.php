@@ -18,13 +18,22 @@
     <?php if ($isSuccessfulSearch) : ?>
     <table class="table">
         <tr>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'name', $search))?>" role="button">Имя:</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'surname', $search))?>" role="button">Фамилия:</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'sex', $search))?>" role="button">Пол:</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'groupNumber', $search))?>" role="button">Группа:</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'mark', $search))?>" role="button">Средний балл:</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'local', $search))?>" role="button">Местный/Приезжий</a></td>
-            <td><a class="btn btn-default" href="<?=htmlProtect(getPaginatorLink($p, 'birthDate', $search))?>" role="button">Год Рождения:</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'name', 'ASC', $search))?>">Имя &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'name', 'DESC', $search))?>">&#9660;</a>
+            </td>
+
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'surname', 'ASC', $search))?>">Фамилия &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'surname', 'DESC', $search))?>">&#9660;</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'sex', 'ASC', $search))?>">Пол &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'sex', 'DESC', $search))?>">&#9660;</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'groupNumber', 'ASC', $search))?>">Номер группы &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'groupNumber', 'DESC', $search))?>">&#9660;</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'mark', 'ASC', $search))?>">Балл &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'mark', 'DESC', $search))?>">&#9660;</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'local', 'ASC', $search))?>">Место проживания &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'local', 'DESC', $search))?>">&#9660;</a></td>
+            <td><a href="<?=htmlProtect(getPaginatorLink($p, 'birthDate', 'ASC', $search))?>">Год рождения &#9650;</a>
+                <a href="<?=htmlProtect(getPaginatorLink($p, 'birthDate', 'DESC', $search))?>">&#9660;</a></td>
         </tr>
         <?php foreach ($students as $number=>$student): ?>
             <tr>
@@ -44,9 +53,9 @@
     <ul class="pagination">
         <?php for($i=1;$i<=$numpages;$i++):
             if ($i == $p) : ?>
-                <li class="active"><a href=<?=htmlProtect(getPaginatorLink($i, $order, $search))?>><?= $i?></a> </li>
+                <li class="active"><a href=<?=htmlProtect(getPaginatorLink($i, $order, $sort, $search))?>><?= $i?></a> </li>
                 <?php else :?>
-                <li><a href=<?=htmlProtect(getPaginatorLink($i, $order, $search))?>><?= $i?></a> </li>
+                <li><a href=<?=htmlProtect(getPaginatorLink($i, $order, $sort, $search))?>><?= $i?></a> </li>
                 <?php endif; ?>
         <?php endfor; ?>
     </ul>

@@ -28,8 +28,7 @@ if (isset($_POST['submit'])) {
     );
     $student   = new Student;
     $student->setFields($stud);
-    $data->addStudentAndCookie($student, $cookiePass);
-    $errors = $data->inspectStudent();
+    $errors = $studentValidator->inspectStudent($db, $student, $cookiePass);
     if (empty($errors)) {
         if (!isset($_COOKIE['password'])) {
             $cookiePass = $student->generatePswrd();
@@ -39,6 +38,7 @@ if (isset($_POST['submit'])) {
             $db->updateStudent($student, $cookiePass);
         }
         $successfulRegister = TRUE;
+        header( 'Refresh: 1.5; url=index.php?page=inspect' );
     }
     require './scripts/register.php';
 }

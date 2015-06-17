@@ -1,6 +1,10 @@
 <?php
 class Student
 {
+    const GENDER_FEMALE = 'F';
+    const GENDER_MALE = 'M';
+    const RESIDENCE_LOCAL = 'L';
+    const RESIDENCE_NOT_LOCAL = 'N';
     protected $name;
     protected $surname;
     protected $sex;
@@ -11,19 +15,31 @@ class Student
     protected $birthDate;
     protected $password;
     protected $ID;
-    public function setFields($data)
+    public function setFields($data='')
     {
-        foreach ($data as $key => $value) {
-            $data[$key] = trim($value);
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = trim($value);
+            }
+            $this->name        = $data['name'];
+            $this->surname     = $data['surname'];
+            $this->sex         = $data['sex'];
+            $this->groupNumber = $data['groupNumber'];
+            $this->email       = $data['email'];
+            $this->mark        = $data['mark'];
+            $this->local       = $data['local'];
+            $this->birthDate   = $data['birthDate'];
+        } else {
+            $this->name = '';
+            $this->surname = '';
+            $this->sex = '';
+            $this->groupNumber = '';
+            $this->email = '';
+            $this->mark = '';
+            $this->local = '';
+            $this->birthDate = '';
         }
-        $this->name        = $data['name'];
-        $this->surname     = $data['surname'];
-        $this->sex         = $data['sex'];
-        $this->groupNumber = $data['groupNumber'];
-        $this->email       = $data['email'];
-        $this->mark        = $data['mark'];
-        $this->local       = $data['local'];
-        $this->birthDate   = $data['birthDate'];
+
     }
     public function getName()
     {
@@ -39,10 +55,12 @@ class Student
     }
     public function getShowSex()
     {
-        if ($this->sex == 'F') {
+        if ($this->sex == Student::GENDER_FEMALE) {
             return 'Женский';
-        } else {
+        } elseif ($this->sex == Student::GENDER_MALE) {
             return 'Мужской';
+        } else {
+            return '';
         }
     }
     public function getGroupNumber()
@@ -63,10 +81,15 @@ class Student
     }
     public function getShowLocal()
     {
-        if ($this->local == 'N') {
+        if ($this->local == Student::RESIDENCE_LOCAL) {
             return 'Местный';
-        } else
+        } elseif ($this->local == Student::RESIDENCE_NOT_LOCAL)
+        {
             return 'Приезжий';
+        } else {
+            return '';
+        }
+
     }
     public function getBirthDate()
     {
