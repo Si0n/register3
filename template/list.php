@@ -29,10 +29,10 @@
             <tr>
                 <td><?=htmlProtect($student->getName()) ?></td>
                 <td><?=htmlProtect($student->getSurname()) ?></td>
-                <td><?=htmlProtect($student->getSex()) ?></td>
+                <td><?=htmlProtect($student->getShowSex()) ?></td>
                 <td><?=htmlProtect($student->getGroupNumber()) ?></td>
                 <td><?=htmlProtect($student->getMark()) ?></td>
-                <td><?=htmlProtect($student->getLocal()) ?></td>
+                <td><?=htmlProtect($student->getShowLocal()) ?></td>
                 <td><?=htmlProtect($student->getBirthDate()) ?></td>
             </tr>
         <?php endforeach ?>
