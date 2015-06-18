@@ -47,33 +47,31 @@ endif;
             <input name="mark"  type="text" class="form-control" id="mark" placeholder="Балл ЕГЭ" value="<?=htmlProtect($student->getMark()) ?>" required>
 
         </div></div></div>
-        <div class="col-md-12">
-        <div class="col-md-6">
-        <table class="table">
-<tr>
-            <td>Место жительства:</td>
+        <div class="row">
+            <div class="col-md-12">
+            <div class="col-md-2">
+                <strong>Место жительства:</strong>
+            </div>
+            <div class="col-md-2"><label class="checkbox-inline">
+                    <input type="radio" name="local" value="L" <?=htmlProtect($local) ?>>Местный
+                </label></div>
+            <div class="col-md-2"><label class="checkbox-inline">
+                    <input type="radio" name="local" value="N" <?=htmlProtect($localNot) ?>>Приезжий
+                </label></div></div>
 
-                <td><label class="checkbox-inline">
-                        <input type="radio" name="local" value="L" <?=htmlProtect($local) ?>>Местный
-                    </label>
-
-                <label class="checkbox-inline">
-                        <input type="radio" name="local" value="N" <?=htmlProtect($localNot) ?>>Приезжий
-                    </label></td></tr>
-<tr>
-            <td>Пол:</td>
-
-                <td><label class="checkbox-inline">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <strong>Пол:</strong>
+                </div>
+                <div class="col-md-2"><label class="checkbox-inline">
                         <input type="radio" name="sex" value="M" <?=htmlProtect($male) ?>>Мужской
-                    </label>
-
-                <label class="checkbox-inline">
+                    </label></div>
+                <div class="col-md-2"><label class="checkbox-inline">
                         <input type="radio" name="sex" value="F" <?=htmlProtect($female) ?>>Женский
-                    </label></td></tr></table>
-        </div></div>
-<br><br>
+                    </label></div>
+            </div>
+        </div>
         <div class="text-center">
-    <!--<nav class="navbar navbar-default navbar-fixed-bottom"> -->
         <a class="btn btn-default" href="index.php" role="button">Вернуться на главную</a>
             <?php if ($password != '') :?>
                 <button type="submit" name="submit" class="btn btn-info">Редактировать</button>
