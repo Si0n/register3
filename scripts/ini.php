@@ -23,6 +23,7 @@ if (isset($_COOKIE['password'])) {
     $headerMessage = 'Вы ещё не зарегистрированы. Воспользуйтесь регистрацией.';
     $student = new Student();
     $student->setFields();
+    $password = '';
 }
 if (isset($_GET['search'])) {
     include_once('./scripts/list_action.php');

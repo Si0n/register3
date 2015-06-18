@@ -1,6 +1,4 @@
 <?php require 'main.php'; ?>
-
-<!-- форма поиска среди зарегистрированных пользователей-->
 <br>
 <form action="" method="get" name="go">
     <div class="col-lg-6">
