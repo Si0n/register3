@@ -1,15 +1,6 @@
 <?php require 'main.php'; ?>
-<br>
-<form action="" method="get" name="go">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Поиск по студентам..." name="search" type="text" size="40">
-        </div><!-- /.col-lg-6 -->
-    </div>
-</form>
-<br>
+<div class="col-md-12">
 <div class="panel panel-default">
-
     <div class="panel-heading"><?=htmlProtect($tablePanelHeadingText)?></div>
     <div class="panel-body">
     </div>
@@ -57,7 +48,7 @@
                 <?php endif; ?>
         <?php endfor; ?>
     </ul>
-</nav>
+</nav></div>
 <?php endif;
     endif;
 require './template/footer.php';

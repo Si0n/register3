@@ -2,8 +2,6 @@
 error_reporting(-1);
 ini_set('display_errors', 1);
 require './scripts/ini.php';
-$activeTab = "active";
-$dashboardTab = $listTab = 'noactive';
 if (isset($_GET['page']) || isset($_GET['search']))
 {
     if (isset($_GET['page']))
@@ -16,16 +14,13 @@ if (isset($_GET['page']) || isset($_GET['search']))
     }
     switch ($include) {
         case 'registration' :
-            $dashboardTab = $activeTab;
+            $navbarEditClass = $navbarActive;
             include('./scripts/register.php'); break;
-        case 'dashboard' :
-            $dashboardTab = $activeTab;
-            include ('./template/dashboard.php'); break;
         case 'list' :
-            $listTab = $activeTab ;
+            $navbarListClass = $navbarActive;
             require_once ('./scripts/list_action.php'); break;
         case 'inspect' :
-            $dashboardTab = $activeTab;
+            $navbarInspectClass = $navbarActive;
             include ('./template/inspect.php'); break;
         default :
             header('Content-Type: text/html; charset=UTF-8');

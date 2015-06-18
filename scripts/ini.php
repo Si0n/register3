@@ -25,6 +25,12 @@ if (isset($_COOKIE['password'])) {
     $student->setFields();
     $password = '';
 }
+//переменные для смены подсветки активной вкладки в меню main.php
+$navbarEditClass = '';
+$navbarInspectClass = '';
+$navbarListClass ='';
+$navbarActive = 'class="active"';
+
 if (isset($_GET['search'])) {
     include_once('./scripts/list_action.php');
 }

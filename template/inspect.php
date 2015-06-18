@@ -1,4 +1,4 @@
-<?php require 'dashboard.php'?>
+<?php require 'main.php'?>
 <ul class="list-group">
     <li class="list-group-item">Имя: <b><?=htmlProtect($student->getName()) ?></b></li>
     <li class="list-group-item">Фамилия: <b><?=htmlProtect($student->getSurname()) ?></b></li>

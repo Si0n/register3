@@ -1,15 +1,14 @@
-
 <?php
-require_once ('dashboard.php');
+require_once ('main.php');
 if (isset($errors)):
     foreach ($errors as $error): ?>
-
-        <div class="alert alert-warning" role="alert"><p></p><?=$error; ?></p></div>
+        <div class="col-md-7">
+        <div class="alert alert-warning" role="alert"><p></p><?=$error; ?></p></div></div>
     <?php endforeach;
 endif;
 if (isset($successfulRegister)):
     if ($successfulRegister):?>
-        <div class="alert alert-success" role="alert">Сохранение Ваших данных прошло успешно.</div>
+<div class="col-md-7"><div class="alert alert-success" role="alert">Сохранение Ваших данных прошло успешно.</div></div>
     <?php endif;
 endif;
 ?>
