@@ -16,9 +16,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Редактировать профиль<span class="sr-only">(current)</span></a></li>
+                    <?php if ($password !='') : ?>
                     <li <?=$navbarInspectClass ?>><a href="index.php?page=inspect">Посмотреть мои данные</a></li>
-
+                    <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Редактировать профиль<span class="sr-only">(current)</span></a></li>
+                   <?php else : ?>
+                    <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Регистрация</a></li>
+<?php endif ?>
                 </ul>
                 <form class="navbar-form navbar-left" role="search" method="get">
                     <div class="form-group">
