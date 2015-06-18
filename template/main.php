@@ -32,4 +32,5 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+
 <?php include 'footer.php';?>

@@ -30,7 +30,6 @@ $navbarEditClass = '';
 $navbarInspectClass = '';
 $navbarListClass ='';
 $navbarActive = 'class="active"';
-
 if (isset($_GET['search'])) {
     include_once('./scripts/list_action.php');
 }

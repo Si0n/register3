@@ -72,15 +72,12 @@ endif;
                     </label></td></tr></table>
         </div></div>
 <br><br>
+        <div class="text-center">
     <!--<nav class="navbar navbar-default navbar-fixed-bottom"> -->
-        <div class="pull-right">
-
+        <a class="btn btn-default" href="index.php" role="button">Вернуться на главную</a>
             <?php if ($password != '') :?>
                 <button type="submit" name="submit" class="btn btn-info">Редактировать</button>
             <?php else : ?>
                 <button type="submit" name="submit" class="btn btn-info">Зарегистрироваться</button>
-            <?php endif ?>
-            <a class="btn btn-default" href="index.php" role="button">Вернуться на главную</a>
-        </div>
-
+            <?php endif ?></div>
 </form>
