@@ -17,7 +17,7 @@ if (isset($_COOKIE['password'])) {
     $password = $_COOKIE['password'];
     if ($db->getStudentFromDB($password)) {
         $student       = $db->getStudentFromDB($password);
-        $headerMessage = "Доброе пожаловать, {$student->getName()}";
+        $headerMessage = "Добро пожаловать, {$student->getName()}";
     }
 } else {
     $headerMessage = 'Вы ещё не зарегистрированы. Воспользуйтесь регистрацией.';

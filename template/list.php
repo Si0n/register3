@@ -39,11 +39,11 @@
     </table>
 </div>
     <?php if ($numpages > 1) : ?>
-<nav align="center">
-    <ul class="pagination">
+        <nav>
+            <ul class="pager">
         <?php for($i=1;$i<=$numpages;$i++):
             if ($i == $p) : ?>
-                <li class="active"><a href=<?=htmlProtect(getPaginatorLink($i, $order, $sort, $search))?>><?= $i?></a> </li>
+                <li><span class="label label-success"><a href=<?=htmlProtect(getPaginatorLink($i, $order, $sort, $search))?>><?= $i?></a></span> </li>
                 <?php else :?>
                 <li><a href=<?=htmlProtect(getPaginatorLink($i, $order, $sort, $search))?>><?= $i?></a> </li>
                 <?php endif; ?>
