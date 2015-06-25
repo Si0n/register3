@@ -41,4 +41,8 @@ public function checkImage($image){
         move_uploaded_file($image["photo"]["tmp_name"],
             "upload/" . $image["photo"]["name"]);
     }
+    public function showDefaultImage()
+    {
+        return 'default.png';
+    }
 } 

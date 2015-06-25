@@ -3,7 +3,13 @@
     <div class="col-md-12">
     <div class="col-md-3">
         <label><?= ($ID != 'self') ? 'Фото:' : 'Ваше фото:' ?>
+            <?php if ($profileByID->getPhoto() != '') : ?>
 <img src="scripts/image_preview.php?photo=<?=htmlProtect($profileByID->getPhoto())?>"></label></div>
+   <?php else :?>
+        <img src="scripts/image_preview.php?photo=<?=htmlProtect($image->showDefaultImage())?>"></label></div>
+
+
+    <?php endif ?>
     <div class="col-md-5">
 <ul class="list-group">
     <li class="list-group-item">Имя: <b><?=htmlProtect($profileByID->getName()) ?></b></li>
