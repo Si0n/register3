@@ -12,15 +12,21 @@ $students = $db->searchFromStudents($order, $sort, $offset, $search);
 
     if ($count == 0)
     {
-        $tablePanelHeadingText = ' Нет совпадений в базе студентов.';
+        $tablePanelHeadingText = 0;
         $isSuccessfulSearch = FALSE;
     } elseif ($students == 'failed')
 {
-    $tablePanelHeadingText = "Невозможно обработать запрос";
+    $tablePanelHeadingText = 1;
     $isSuccessfulSearch = FALSE;
 }
     else {
-        $tablePanelHeadingText = "Найдено студентов: $count";
+        if ($search == '')
+        {
+            $tablePanelHeadingText = 2;
+        } else {
+            $tablePanelHeadingText = 3;
+        }
+
         $isSuccessfulSearch = TRUE;
     }
     $numpages = ceil ($count/$recordsPerPage);

@@ -9,8 +9,8 @@ class StudentsMapper
     public function saveStudent(Student $student)
     {
         $STH = $this->db->prepare("INSERT INTO Students
-                                  (name, surname, sex, groupNumber, email, mark, local, birthDate, password)
-                                  VALUES (:name, :surname, :sex, :groupNumber, :email, :mark, :local, :birthDate, :password);");
+                                  (name, surname, sex, groupNumber, email, mark, local, birthDate, password, photo)
+                                  VALUES (:name, :surname, :sex, :groupNumber, :email, :mark, :local, :birthDate, :password, :photo);");
         $STH->bindValue(':password', $student->getPassword());
         $STH->bindValue(':name', $student->getName());
         $STH->bindValue(':surname', $student->getSurname());
@@ -18,17 +18,26 @@ class StudentsMapper
         $STH->bindValue(':groupNumber', $student->getGroupNumber());
         $STH->bindValue(':email', $student->getEmail());
         $STH->bindValue(':mark', $student->getMark());
+        $STH->bindValue(':photo', $student->getPhoto());
         $STH->bindValue(':local', $student->getLocal());
         $STH->bindValue(':birthDate', $student->getBirthDate());
         $STH->execute();
     }
     public function updateStudent(Student $student, $password)
     {
-        $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
+        if ($student->getPhoto() == '')
+        {
+            $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
                                   `sex`= :sex,`groupNumber`= :groupNumber,`email`= :email,
-                                  `mark`= :mark,`local`= :local,`birthDate`= :birthDate
-                                  WHERE password= :password");
-        $STH->bindValue(':password', $password);
+                                  `mark`= :mark,`local`= :local,`birthDate`= :birthDate WHERE password= :password");
+
+        } else {
+            $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
+                                  `sex`= :sex,`groupNumber`= :groupNumber,`email`= :email,
+                                  `mark`= :mark,`local`= :local,`birthDate`= :birthDate, photo= :photo WHERE password= :password");
+            $STH->bindValue(':photo', $student->getPhoto());
+        }
+         $STH->bindValue(':password', $password);
         $STH->bindValue(':name', $student->getName());
         $STH->bindValue(':surname', $student->getSurname());
         $STH->bindValue(':sex', $student->getSex());
@@ -39,7 +48,7 @@ class StudentsMapper
         $STH->bindValue(':birthDate', $student->getBirthDate());
         $STH->execute();
     }
-    public function getStudentFromDB($password)
+    public function inspectStudentByPassword($password)
     {
         $sql    = "SELECT * FROM students WHERE password= :password";
         $cpswrd = $this->db->prepare($sql);
@@ -49,6 +58,22 @@ class StudentsMapper
         $student = $cpswrd->fetch();
         return $student;
     }
+    public function inspectStudentByID($ID)
+    {
+        $sql    = "SELECT * FROM students WHERE ID= :ID";
+        $cpswrd = $this->db->prepare($sql);
+        $cpswrd->bindValue(':ID', $ID);
+        $cpswrd->execute();
+        $cpswrd->setFetchMode(PDO::FETCH_CLASS, "student");
+        $student = $cpswrd->fetch();
+        return $student;
+    }
+
+
+
+
+
+
     public function getCountInDb($string = '')
     {
         if ($string === '') {
@@ -77,8 +102,8 @@ class StudentsMapper
             'local',
             'birthDate');
         $sortVariations = array (1=> 'ASC', 2=> 'DESC');
-        $legitSort = array_search($sort, $sortVariations);
-        $legitOrder = array_search($order, $orderVariations);
+        $legitSort = in_array($sort, $sortVariations);
+        $legitOrder = in_array($order, $orderVariations);
         if ($legitOrder && $legitSort)
         {
             if ($string === '') {
@@ -122,7 +147,7 @@ class StudentsMapper
         if (!empty($students)) {
             return FALSE;
         } else {
-            return StudentsMapper::isThisEmailInDB($email);
+            return $this->isThisEmailInDB($email);
         }
     }
 

@@ -2,22 +2,22 @@
 require_once ('main.php');
 if (isset($errors)):
     foreach ($errors as $error): ?>
-        <div class="col-md-7">
+        <div class="col-md-12">
         <div class="alert alert-warning" role="alert"><p></p><?=$error; ?></p></div></div>
     <?php endforeach;
 endif;
-if (isset($successfulRegister)):
-    if ($successfulRegister):?>
-<div class="col-md-7"><div class="alert alert-success" role="alert">Сохранение Ваших данных прошло успешно.</div></div>
-    <?php endif;
-endif;
 ?>
+    <form id="register" method="post" action="reg.php" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="col-md-4">
+        <label for="file">Загрузить фото:</label>
+        <input type="file" name="photo" id="file" >
+</div></div>
 
-
-    <form id="register" method="post" action="reg.php">
         <div class="col-md-12">
         <div class="col-md-4">
         <div class="form-group">
+            <br>
             <label for="name">Ваше Имя</label>
             <input name="name"  type="text" class="form-control" id="name" placeholder="Имя"  value="<?=htmlProtect($student->getName()) ?>" required>
 
@@ -47,30 +47,30 @@ endif;
             <input name="mark"  type="text" class="form-control" id="mark" placeholder="Балл ЕГЭ" value="<?=htmlProtect($student->getMark()) ?>" required>
 
         </div></div></div>
-        <div class="row">
             <div class="col-md-12">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <strong>Место жительства:</strong>
-            </div>
+            </div></div>
+            <div class="col-md-12">
             <div class="col-md-2"><label class="checkbox-inline">
-                    <input type="radio" name="local" value="L" <?=htmlProtect($local) ?>>Местный
+                    <input type="radio" name="local" value="L" <?= ($student->getLocal() == $student::RESIDENCE_LOCAL) ? 'checked' : '' ?>>Местный
                 </label></div>
             <div class="col-md-2"><label class="checkbox-inline">
-                    <input type="radio" name="local" value="N" <?=htmlProtect($localNot) ?>>Приезжий
+                    <input type="radio" name="local" value="N" <?= ($student->getLocal() == $student::RESIDENCE_NOT_LOCAL) ? 'checked' : '' ?>>Приезжий
                 </label></div></div>
 
             <div class="col-md-12">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <strong>Пол:</strong>
-                </div>
+                </div></div>
+            <div class="col-md-12">
                 <div class="col-md-2"><label class="checkbox-inline">
-                        <input type="radio" name="sex" value="M" <?=htmlProtect($male) ?>>Мужской
+                        <input type="radio" name="sex" value="M" <?= ($student->getSex() == $student::GENDER_MALE) ? 'checked' : '' ?>>Мужской
                     </label></div>
                 <div class="col-md-2"><label class="checkbox-inline">
-                        <input type="radio" name="sex" value="F" <?=htmlProtect($female) ?>>Женский
+                        <input type="radio" name="sex" value="F" <?= ($student->getSex() == $student::GENDER_FEMALE) ? 'checked' : '' ?>>Женский
                     </label></div>
             </div>
-        </div>
         <div class="text-center">
         <a class="btn btn-default" href="index.php" role="button">Вернуться на главную</a>
             <?php if ($password != '') :?>

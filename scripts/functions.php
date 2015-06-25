@@ -24,3 +24,22 @@ function getPaginatorLink($page, $order, $sort, $search = FALSE)
     $pageLinker = $link_start . http_build_query($link);
     return $pageLinker;
 }
+function setClassOfElement($activeElement='') {
+    $inspect = '';
+    $registration = '';
+    $list = '';
+    switch ($activeElement){
+        case 'registration' :
+            $registration = 'class="active"';
+            break;
+        case 'inspect':
+            $inspect = 'class="active"';
+            break;
+        case 'list':
+            $list = 'class="active"';
+            break;
+        default: break;
+    }
+    $array = array($inspect, $registration, $list);
+    return $array;
+}

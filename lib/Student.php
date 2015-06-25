@@ -14,10 +14,10 @@ class Student
     protected $local;
     protected $birthDate;
     protected $password;
+    protected $photo;
     protected $ID;
-    public function setFields($data='')
+    public function setFields($data)
     {
-        if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $data[$key] = trim($value);
             }
@@ -29,17 +29,27 @@ class Student
             $this->mark        = $data['mark'];
             $this->local       = $data['local'];
             $this->birthDate   = $data['birthDate'];
-        } else {
-            $this->name = '';
-            $this->surname = '';
-            $this->sex = '';
-            $this->groupNumber = '';
-            $this->email = '';
-            $this->mark = '';
-            $this->local = '';
-            $this->birthDate = '';
-        }
 
+
+    }
+    public function setFieldsWithWhiteSpaces()
+    {
+        $this->name = '';
+        $this->surname = '';
+        $this->sex = '';
+        $this->groupNumber = '';
+        $this->email = '';
+        $this->mark = '';
+        $this->local = '';
+        $this->birthDate = '';
+    }
+    public function savePhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+    public function getPhoto()
+    {
+       return $this->photo;
     }
     public function getName()
     {
@@ -98,6 +108,10 @@ class Student
     public function getPassword()
     {
         return $this->password;
+    }
+    public function getID()
+    {
+        return $this->ID;
     }
     public function generatePswrd()
     {

@@ -1,5 +1,11 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+list($navbarInspectClass, $navbarEditClass, $navbarListClass) = setClassOfElement($include);
+
+?>
 <div class="well well-sm"><?=htmlProtect($headerMessage)?></div>
+<?php if ($successfulRegister) : ?>
+<div class="alert alert-success" role="alert"><?=htmlProtect($successfulRegister)?></div>
+<?php endif ?>
        <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +23,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <?php if ($password !='') : ?>
-                    <li <?=$navbarInspectClass ?>><a href="index.php?page=inspect">Посмотреть мои данные</a></li>
+                    <li <?=$navbarInspectClass ?>><a href="index.php?ID=self"><?= ($ID != 'self') ? 'Просмотр профиля' : 'Мой профиль' ?></a></li>
                     <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Редактировать профиль<span class="sr-only">(current)</span></a></li>
                    <?php else : ?>
                     <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Регистрация</a></li>
@@ -25,7 +31,7 @@
                 </ul>
                 <form class="navbar-form navbar-left" role="search" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="search" placeholder="Поиск">
+                        <input type="text" class="form-control" name="search" placeholder="<?=htmlProtect(($search != '') ? $search : 'Поиск...') ?>">
                     </div>
                     <button type="submit" class="btn btn-default">Искать!</button>
                 </form>
