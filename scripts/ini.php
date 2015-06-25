@@ -12,6 +12,7 @@ spl_autoload_register(function($class)
 $pdo  = new PDO($dsn, $user, $pass, $opt);
 $studentValidator = new StudentValidator();
 $db   = new StudentsMapper($pdo);
+$image = new ImageUploader();
 if (isset($_COOKIE['password'])) {
     $password = $_COOKIE['password'];
     if ($db->inspectStudentByPassword($password)) {

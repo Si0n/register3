@@ -43,3 +43,4 @@ function setClassOfElement($activeElement='') {
     $array = array($inspect, $registration, $list);
     return $array;
 }
+
