@@ -6,7 +6,7 @@ require './scripts/ini.php';
         case 'registration' :
             include('./template/edit.php'); break;
         case 'inspect' :
-            require 'template/inspect.php'; break;
+            require 'scripts/messages.php'; break;
         case 'list' :
             require_once ('./scripts/list_action.php'); break;
         case 'main' :

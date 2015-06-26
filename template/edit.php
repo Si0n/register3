@@ -3,7 +3,7 @@ require_once ('main.php');
 if (isset($errors)):
     foreach ($errors as $error): ?>
         <div class="col-md-12">
-        <div class="alert alert-warning" role="alert"><p></p><?=$error; ?></p></div></div>
+        <div class="alert alert-warning" role="alert"><p><?=$error; ?></p></div></div>
     <?php endforeach;
 endif;
 ?>

@@ -6,9 +6,10 @@ $offset = ($p -1) * $recordsPerPage;
 $search = isset($_GET['search'])   ?  $_GET['search'] : '' ;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'ASC';
 $order = isset($_GET['order']) ? $_GET['order'] : 'ID';
+$takeRes = 4; //сколько взять результатов
 
 $count = $db->getCountInDb($search);
-$students = $db->searchFromStudents($order, $sort, $offset, $search);
+$students = $db->searchFromStudents($order, $sort, $offset, $takeRes, $search);
 
     if ($count == 0)
     {

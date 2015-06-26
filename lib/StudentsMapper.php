@@ -91,7 +91,7 @@ class StudentsMapper
         $count = $srchStudents->fetchColumn();
         return $count;
     }
-    public function searchFromStudents($order, $sort='ASC', $offset, $string = '')
+    public function searchFromStudents($order, $sort='ASC', $offset, $takeRes, $string = '')
     {
         $orderVariations = array(1=>'ID',
             'name',
@@ -107,7 +107,7 @@ class StudentsMapper
         if ($legitOrder && $legitSort)
         {
             if ($string === '') {
-                $sql = "SELECT * FROM students ORDER BY $order $sort LIMIT $offset, 4";
+                $sql = "SELECT * FROM students ORDER BY $order $sort LIMIT $offset, $takeRes";
             } else {
                 $sql = "SELECT * FROM students WHERE Name
                         LIKE :string or Surname LIKE :string or GroupNumber

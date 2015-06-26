@@ -24,6 +24,19 @@ function getPaginatorLink($page, $order, $sort, $search = FALSE)
     $pageLinker = $link_start . http_build_query($link);
     return $pageLinker;
 }
+function getPagiForMessage($page, $id)
+{
+    $link_start = 'index.php?';
+    $link = array(
+        'ID' => $id,
+        'pmess' => $page
+    );
+    $pageLinker = $link_start . http_build_query($link);
+    return $pageLinker;
+}
+
+
+
 function setClassOfElement($activeElement='') {
     $inspect = '';
     $registration = '';

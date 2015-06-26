@@ -13,8 +13,10 @@ $pdo  = new PDO($dsn, $user, $pass, $opt);
 $studentValidator = new StudentValidator();
 $db   = new StudentsMapper($pdo);
 $image = new ImageUploader();
+$messenger = new MessageMapper($pdo);
 if (isset($_COOKIE['password'])) {
     $password = $_COOKIE['password'];
+    $headerMessage = 'К сожалению, Вас нет в списке студентов.';
     if ($db->inspectStudentByPassword($password)) {
         $student       = $db->inspectStudentByPassword($password);
         $headerMessage = "Добро пожаловать, {$student->getName()}";
@@ -36,12 +38,13 @@ if (isset($_GET['register']))
 
 $include = isset($_GET['page'])   ?  $_GET['page'] : 'main' ;
 $ID = isset($_GET['ID'])   ?  $_GET['ID'] : '' ;
-if ($ID != '' && $ID != 'self')
+$err =  isset($_GET['err'])   ? 'Вы ничего не ввели, либо использовали недопустимые символы' : FALSE ;
+if ($ID != '')
 {
-    $include = 'inspect';
+   if ($ID == 'self') {
+       $ID = $student->getID();
+   }
     $profileByID = $db->inspectStudentByID($ID);
-} elseif ($ID == 'self'){
-    $profileByID = $db->inspectStudentByID($student->getID());
     if ($profileByID)
     {
         $include = 'inspect';
