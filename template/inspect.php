@@ -2,13 +2,13 @@
 <div class="row">
     <div class="col-md-12">
     <div class="col-md-3">
-        <label><?= ($ID != 'self') ? 'Фото:' : 'Ваше фото:' ?><br>
+        <label><?= ($ID != $student->getID()) ? 'Фото:' : 'Ваше фото:' ?><br>
             <?php if ($profileByID->getPhoto() != '') : ?>
             <a href="upload/<?=$profileByID->getPhoto()?>"><img src="upload/cr-<?=$profileByID->getPhoto()?>"></a></label>
         <?php else :?>
             <img src="upload/default.jpg"></label>
         <?php endif ?>
-        <?php if ($ID == 'self') :
+        <?php if ($ID == $student->getID()) :
         include 'form_photo.php';
         endif;?>
 
