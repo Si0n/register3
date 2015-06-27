@@ -51,13 +51,19 @@
         <nav>
 
             <ul class="pagination">
-                <?php for($i=1;$i<=$numpages;$i++):
-                    if ($i == $p) : ?>
-                        <li class="active"><a href="<?=htmlProtect(getPagiForMessage($i, $ID))?>"><?= $i?></a></li>
-                    <?php else :?>
-                        <li><a href="<?=htmlProtect(getPagiForMessage($i, $ID))?>"><?= $i?></a> </li>
-                    <?php endif; ?>
-                <?php endfor; ?>
+                <?php if ($p > 1): ?>
+                <li><a href="<?=htmlProtect(getPagiForMessage('1', $ID))?>"><span aria-hidden="true">&laquo;</span></a> </li>
+                        <?php endif;
+                    if ($p -1 > 0): ?>
+                         <li><a href="<?=htmlProtect(getPagiForMessage($p-1, $ID))?>"><?= $p-1?></a> </li>
+                       <?php endif ?>
+                        <li class="active"><a href="<?=htmlProtect(getPagiForMessage($p, $ID))?>"><?= $p?></a></li>
+                <?php if ($p +1 <= $numpages): ?>
+                <li><a href="<?=htmlProtect(getPagiForMessage($p+1, $ID))?>"><?= $p+1?></a> </li>
+                <?php endif;
+                if ($p < $numpages): ?>
+                <li><a href="<?=htmlProtect(getPagiForMessage($numpages, $ID))?>"><span aria-hidden="true">&raquo;</span></a> </li>
+                <?php endif ?>
             </ul></nav></div>
     </div>
 </div>
