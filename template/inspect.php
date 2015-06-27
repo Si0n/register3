@@ -4,10 +4,19 @@
     <div class="col-md-3">
         <label><?= ($ID != 'self') ? 'Фото:' : 'Ваше фото:' ?><br>
             <?php if ($profileByID->getPhoto() != '') : ?>
-<img src="scripts/image_preview.php?photo=<?=htmlProtect($profileByID->getPhoto())?>"></label>
-   <?php else :?>
-        <img src="scripts/image_preview.php?photo=<?=htmlProtect($image->showDefaultImage())?>"></label>
-    <?php endif ?></div>
+            <a href="upload/<?=$profileByID->getPhoto()?>"><img src="upload/cr-<?=$profileByID->getPhoto()?>"></a></label>
+        <?php else :?>
+            <img src="upload/default.jpg"></label>
+        <?php endif ?>
+        <form id="register" method="post" action="savePhoto.php" enctype="multipart/form-data">
+
+                    <label for="file">Загрузить фото:</label>
+                    <input type="file" name="photo" id="file" >
+            <br>
+            <button type="submit" name="submit" class="btn btn-info">Изменить фото</button>
+            </form>
+
+    </div>
     <div class="col-md-4">
 <ul class="list-group">
     <li class="list-group-item">Имя: <b><?=htmlProtect($profileByID->getName()) ?></b></li>
@@ -35,7 +44,7 @@
         <br>
         <?php foreach ($messages as $message) : ?>
             <p class="bg-info"><?=htmlProtect($message->getDate()) ?> от:
-                <a href="index.php?ID=<?=htmlProtect($message->getIDauthor()) ?>"><?=htmlProtect($db->inspectStudentByID($message->getIDauthor())->getName()) ?> <?=htmlProtect($db->inspectStudentByID($message->getIDauthor())->getSurname()) ?></a></p>
+                <a href="index.php?ID=<?=htmlProtect($message->getIDauthor()) ?>"><?=htmlProtect($db->findStudentByID($message->getIDauthor())->getName()) ?> <?=htmlProtect($db->findStudentByID($message->getIDauthor())->getSurname()) ?></a></p>
             <?=htmlProtect($message->outputMessage()) ?>
         <?php endforeach ?>
         <div class="text-center">

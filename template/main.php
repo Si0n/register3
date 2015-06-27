@@ -1,10 +1,13 @@
 <?php include 'header.php';
-list($navbarInspectClass, $navbarEditClass, $navbarListClass) = setClassOfElement($include);
 
 ?>
 <div class="well well-sm"><?=htmlProtect($headerMessage)?></div>
-<?php if ($successfulRegister) : ?>
-<div class="alert alert-success" role="alert"><?=htmlProtect($successfulRegister)?></div>
+<?php if (isset($registerMessage)) :
+    if ($register == 'ok') :?>
+<div class="alert alert-success" role="alert">
+    <?php else: ?>
+        <div class="alert alert-danger" role="alert">
+        <?php endif; ?><?=htmlProtect($registerMessage)?></div>
 <?php endif ?>
        <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -23,10 +26,10 @@ list($navbarInspectClass, $navbarEditClass, $navbarListClass) = setClassOfElemen
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <?php if ($password !='') : ?>
-                    <li <?=$navbarInspectClass ?>><a href="index.php?ID=self"><?= ($ID != 'self') ? 'Просмотр профиля' : 'Мой профиль' ?></a></li>
-                    <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Редактировать профиль<span class="sr-only">(current)</span></a></li>
+                    <li <?= ($include == 'inspect') ? ' class="active" ' : '' ?>><a href="index.php?ID=self"><?= ($ID != 'self') ? 'Просмотр профиля' : 'Мой профиль' ?></a></li>
+                    <li <?= ($include == 'registration') ? ' class="active" ' : '' ?>><a href="index.php?page=registration">Редактировать профиль<span class="sr-only">(current)</span></a></li>
                    <?php else : ?>
-                    <li <?=$navbarEditClass ?>><a href="index.php?page=registration">Регистрация</a></li>
+                    <li <?= ($include == 'registration') ? ' class="active" ' : '' ?>><a href="index.php?page=registration">Регистрация</a></li>
 <?php endif ?>
                 </ul>
                 <form class="navbar-form navbar-left" role="search" method="get">
@@ -36,7 +39,7 @@ list($navbarInspectClass, $navbarEditClass, $navbarListClass) = setClassOfElemen
                     <button type="submit" class="btn btn-default">Искать!</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li <?=$navbarListClass ?>><a href="index.php?page=list">Список абитуриентов</a></li>
+                    <li <?= ($include == 'list') ? ' class="active" ' : '' ?>><a href="index.php?page=list">Список абитуриентов</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

@@ -13,19 +13,19 @@ $students = $db->searchFromStudents($order, $sort, $offset, $takeRes, $search);
 
     if ($count == 0)
     {
-        $tablePanelHeadingText = 0;
+        $tablePanelHeadingText = TAB_HEADER_NOTHING_FOUND;
         $isSuccessfulSearch = FALSE;
     } elseif ($students == 'failed')
 {
-    $tablePanelHeadingText = 1;
+    $tablePanelHeadingText = TAB_HEADER_WRONG_REQUEST;
     $isSuccessfulSearch = FALSE;
 }
     else {
         if ($search == '')
         {
-            $tablePanelHeadingText = 2;
+            $tablePanelHeadingText = TAB_HEADER_ALL_STUDENTS_REQUEST;
         } else {
-            $tablePanelHeadingText = 3;
+            $tablePanelHeadingText = TAB_HEADER_SOME_STUDENTS_REQUEST;
         }
 
         $isSuccessfulSearch = TRUE;

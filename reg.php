@@ -3,7 +3,6 @@ error_reporting(-1);
 ini_set('display_errors', 1);
 require './scripts/ini.php';
 if (isset($_POST['submit'])) {
-    $loadedImage = $image->checkImage($_FILES);
     if (isset($_COOKIE['password'])) {
         $cookiePass = $_COOKIE['password'];
     } else {
@@ -30,33 +29,16 @@ if (isset($_POST['submit'])) {
     $student   = new Student;
     $student->setFields($stud);
     $errors = $studentValidator->inspectStudent($db, $student, $cookiePass);
-    if ($loadedImage)
-    {
-        if (isset($loadedImage['error']))
-        {
-            $errors[] = $loadedImage['error'];
-        }
-        if (isset($loadedImage['name']))
-        {
-            $student->savePhoto($loadedImage['name']);
-        }
-    }
+
+
     if (empty($errors)) {
         if (!isset($_COOKIE['password'])) {
             $cookiePass = $student->generatePswrd();
             $db->saveStudent($student);
-            if ($loadedImage)
-            {
-                $image->saveImage($_FILES);
-            }
             SetCookie("password", $cookiePass, time() + 4 * 60 * 60 * 24 * 365, "/");
 
         } else {
             $db->updateStudent($student, $cookiePass);
-            if ($loadedImage)
-            {
-                $image->saveImage($_FILES);
-            }
         }
         header('Location: index.php?register=ok');
     }

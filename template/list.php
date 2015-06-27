@@ -1,20 +1,15 @@
 <?php require 'main.php'; ?>
 <div class="col-md-12">
 <div class="panel panel-default">
-    <?php switch ($tablePanelHeadingText) :
-    case 0: ?>
+    <?php if ($tablePanelHeadingText == TAB_HEADER_NOTHING_FOUND) :?>
     <div class="panel-heading">Нет совпадений по запросу «<?=htmlProtect($search) ?>»</div>
-   <? break;
-    case 1: ?>
+   <? elseif ($tablePanelHeadingText == TAB_HEADER_WRONG_REQUEST) : ?>
     <div class="panel-heading">Неверный запрос</div>
-        <? break;
-    case 2: ?>
+        <? elseif ($tablePanelHeadingText == TAB_HEADER_ALL_STUDENTS_REQUEST) : ?>
     <div class="panel-heading">Список всех зарегистрированных студентов. Найдено результатов: <?=htmlProtect($count) ?>.</div>
-        <? break;
-    case 3: ?>
+        <? elseif ($tablePanelHeadingText == TAB_HEADER_SOME_STUDENTS_REQUEST):?>
     <div class="panel-heading">Показаны только абитуриенты, найденные по запросу «<?=htmlProtect($search) ?>». Количество найденных результатов: <?=htmlProtect($count) ?>. <a href="index.php?page=list"><span class="badge">Показать всех студентов</span></a></div>
-        <? break;
-        endswitch?>
+        <? endif?>
     <div class="panel-body">
     </div>
     <?php if ($isSuccessfulSearch) : ?>

@@ -6,6 +6,14 @@ class StudentsMapper
     {
         $this->db = $pdo;
     }
+    public function savePhoto($photo, $password)
+    {
+        $STH = $this->db->prepare("UPDATE `Students` SET `photo`= :photo WHERE password= :password");
+        $STH->bindValue(':password', $password);
+        $STH->bindValue(':photo', $photo);
+        $STH->execute();
+
+    }
     public function saveStudent(Student $student)
     {
         $STH = $this->db->prepare("INSERT INTO Students
@@ -25,19 +33,11 @@ class StudentsMapper
     }
     public function updateStudent(Student $student, $password)
     {
-        if ($student->getPhoto() == '')
-        {
-            $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
+        $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
                                   `sex`= :sex,`groupNumber`= :groupNumber,`email`= :email,
                                   `mark`= :mark,`local`= :local,`birthDate`= :birthDate WHERE password= :password");
 
-        } else {
-            $STH = $this->db->prepare("UPDATE `Students` SET `name`= :name,`surname`= :surname,
-                                  `sex`= :sex,`groupNumber`= :groupNumber,`email`= :email,
-                                  `mark`= :mark,`local`= :local,`birthDate`= :birthDate, photo= :photo WHERE password= :password");
-            $STH->bindValue(':photo', $student->getPhoto());
-        }
-         $STH->bindValue(':password', $password);
+        $STH->bindValue(':password', $password);
         $STH->bindValue(':name', $student->getName());
         $STH->bindValue(':surname', $student->getSurname());
         $STH->bindValue(':sex', $student->getSex());
@@ -48,7 +48,7 @@ class StudentsMapper
         $STH->bindValue(':birthDate', $student->getBirthDate());
         $STH->execute();
     }
-    public function inspectStudentByPassword($password)
+    public function findStudentByPassword($password)
     {
         $sql    = "SELECT * FROM students WHERE password= :password";
         $cpswrd = $this->db->prepare($sql);
@@ -58,7 +58,7 @@ class StudentsMapper
         $student = $cpswrd->fetch();
         return $student;
     }
-    public function inspectStudentByID($ID)
+    public function findStudentByID($ID)
     {
         $sql    = "SELECT * FROM students WHERE ID= :ID";
         $cpswrd = $this->db->prepare($sql);

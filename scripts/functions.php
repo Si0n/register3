@@ -37,23 +37,4 @@ function getPagiForMessage($page, $id)
 
 
 
-function setClassOfElement($activeElement='') {
-    $inspect = '';
-    $registration = '';
-    $list = '';
-    switch ($activeElement){
-        case 'registration' :
-            $registration = 'class="active"';
-            break;
-        case 'inspect':
-            $inspect = 'class="active"';
-            break;
-        case 'list':
-            $list = 'class="active"';
-            break;
-        default: break;
-    }
-    $array = array($inspect, $registration, $list);
-    return $array;
-}
 

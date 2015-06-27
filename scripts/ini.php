@@ -9,16 +9,22 @@ spl_autoload_register(function($class)
         include './lib/' . $class . '.php';
     }
 });
+const TAB_HEADER_NOTHING_FOUND = 0;
+const TAB_HEADER_WRONG_REQUEST = 1;
+const TAB_HEADER_ALL_STUDENTS_REQUEST = 2;
+const TAB_HEADER_SOME_STUDENTS_REQUEST = 3;
+
+
 $pdo  = new PDO($dsn, $user, $pass, $opt);
 $studentValidator = new StudentValidator();
 $db   = new StudentsMapper($pdo);
-$image = new ImageUploader();
+$image = new Image();
 $messenger = new MessageMapper($pdo);
 if (isset($_COOKIE['password'])) {
     $password = $_COOKIE['password'];
     $headerMessage = 'К сожалению, Вас нет в списке студентов.';
-    if ($db->inspectStudentByPassword($password)) {
-        $student       = $db->inspectStudentByPassword($password);
+    if ($db->findStudentByPassword($password)) {
+        $student       = $db->findStudentByPassword($password);
         $headerMessage = "Добро пожаловать, {$student->getName()}";
     }
 } else {
@@ -30,10 +36,15 @@ if (isset($_COOKIE['password'])) {
 $successfulRegister = FALSE;
 if (isset($_GET['register']))
 {
-    if ($_GET['register']== 'ok')
+    $register = strval($_GET['register']);
+    if ($register== 'ok')
     {
-        $successfulRegister = 'Вы успешно сохранили Ваши данные.';
+        $registerMessage = 'Вы успешно сохранили Ваши данные.';
+    } elseif ($register == 'fail')
+    {
+        $registerMessage = 'Ошибка при загрузке фото.';
     }
+
 }
 
 $include = isset($_GET['page'])   ?  $_GET['page'] : 'main' ;
@@ -44,7 +55,7 @@ if ($ID != '')
    if ($ID == 'self') {
        $ID = $student->getID();
    }
-    $profileByID = $db->inspectStudentByID($ID);
+    $profileByID = $db->findStudentByID($ID);
     if ($profileByID)
     {
         $include = 'inspect';

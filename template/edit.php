@@ -7,12 +7,7 @@ if (isset($errors)):
     <?php endforeach;
 endif;
 ?>
-    <form id="register" method="post" action="reg.php" enctype="multipart/form-data">
-        <div class="col-md-12">
-            <div class="col-md-4">
-        <label for="file">Загрузить фото:</label>
-        <input type="file" name="photo" id="file" >
-</div></div>
+    <form id="register" method="post" action="reg.php">
 
         <div class="col-md-12">
         <div class="col-md-4">
