@@ -8,13 +8,9 @@
         <?php else :?>
             <img src="upload/default.jpg"></label>
         <?php endif ?>
-        <form id="register" method="post" action="savePhoto.php" enctype="multipart/form-data">
-
-                    <label for="file">Загрузить фото:</label>
-                    <input type="file" name="photo" id="file" >
-            <br>
-            <button type="submit" name="submit" class="btn btn-info">Изменить фото</button>
-            </form>
+        <?php if ($ID == 'self') :
+        include 'form_photo.php';
+        endif;?>
 
     </div>
     <div class="col-md-4">
@@ -34,13 +30,14 @@
         <?php if ($err) : ?>
             <div class="alert alert-warning" role="alert"><p><?=htmlProtect($err) ?></p></div>
         <?php endif ?>
-        <form action="mess_action.php" method="post">
+
+        <form  action="mess_action.php" method="post">
             <input type="hidden" name="redirect" value="<?=htmlProtect(getPagiForMessage($p, $ID)) ?>">
             <input type="hidden" name="id_target" value="<?=htmlProtect($ID) ?>">
             <input type="hidden" name="id_author" value="<?=htmlProtect($student->getID()) ?>">
             <textarea class="form-control" rows="3" name="text" placeholder="Ваше сообщение"></textarea></p>
             <button type="submit" name="submit" class="btn btn-info">Отправить сообщение</button>
-        </form>
+             </form>
         <br>
         <?php foreach ($messages as $message) : ?>
             <p class="bg-info"><?=htmlProtect($message->getDate()) ?> от:
