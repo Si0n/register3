@@ -4,17 +4,25 @@ ini_set('display_errors', 1);
 require './scripts/ini.php';
 if (isset($_POST['submit']))
 {
+if ($_FILES['photo']['size'] > 0)
+{
     $loadedImage = $image->isImageBroken($_FILES['photo']);
-    if ($loadedImage)
+    if (!$loadedImage)
     {
-        $errors[] = $loadedImage;
-        header('Location: index.php?register=fail&ID=self');
-    } else {
         $newPhotoName = $image->makeNewNameOfPhoto($student->getID());
-        $student->savePhoto($newPhotoName);
-        $image->saveImage($_FILES['photo'], $newPhotoName);
-        $db->savePhoto($newPhotoName, $password);
-        header('Location: index.php?register=ok&ID=self');
+        if ($image->saveImage($_FILES['photo'], $newPhotoName))
+        {
+            $student->savePhoto($newPhotoName);
+            $db->savePhoto($newPhotoName, $password);
+            header('Location: inspect.php?register=ok');
+            exit();
+        }
     }
+}
+    header('Location: inspect.php?register=fail');
+    exit();
 
+} else {
+    header('Location: inspect.php');
+    exit();
 }

@@ -42,9 +42,9 @@ class MessageMapper {
 
 
 
-    public function readMessage($id, $offset)
+    public function readMessage($id, $limit, $offset)
     {
-        $sql    = "SELECT * FROM messages WHERE id_target = :id ORDER BY id_message DESC LIMIT $offset, 4";
+        $sql    = "SELECT * FROM messages WHERE id_target = :id ORDER BY id_message DESC LIMIT $limit, $offset";
         $cpswrd = $this->pdo->prepare($sql);
         $cpswrd->bindValue(':id', $id);
         $cpswrd->execute();

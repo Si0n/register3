@@ -27,12 +27,11 @@
     <li class="list-group-item">Пол: <b><?=htmlProtect($profileByID->getShowSex()) ?></b></li>
 </ul></div>
     <div class="col-md-4">
-        <?php if ($err) : ?>
-            <div class="alert alert-warning" role="alert"><p><?=htmlProtect($err) ?></p></div>
+        <?php if ($errorForMessage) : ?>
+            <div class="alert alert-warning" role="alert"><p><?=htmlProtect($errorForMessage) ?></p></div>
         <?php endif ?>
 
-        <form  action="mess_action.php" method="post">
-            <input type="hidden" name="redirect" value="<?=htmlProtect(getPagiForMessage($p, $ID)) ?>">
+        <form  action="inspect.php?ID=<?=htmlProtect($ID) ?>" method="post">
             <input type="hidden" name="id_target" value="<?=htmlProtect($ID) ?>">
             <input type="hidden" name="id_author" value="<?=htmlProtect($student->getID()) ?>">
             <textarea class="form-control" rows="3" name="text" placeholder="Ваше сообщение"></textarea></p>
@@ -44,9 +43,9 @@
                 <a href="index.php?ID=<?=htmlProtect($message->getIDauthor()) ?>"><?=htmlProtect($db->findStudentByID($message->getIDauthor())->getName()) ?> <?=htmlProtect($db->findStudentByID($message->getIDauthor())->getSurname()) ?></a></p>
             <?=htmlProtect($message->outputMessage()) ?>
         <?php endforeach ?>
+        <?php if ($p > 1) : ?>
         <div class="text-center">
         <nav>
-
             <ul class="pagination">
                 <?php if ($p > 1): ?>
                 <li><a href="<?=htmlProtect(getPagiForMessage('1', $ID))?>"><span aria-hidden="true">&laquo;</span></a> </li>
@@ -61,6 +60,6 @@
                 if ($p < $numpages): ?>
                 <li><a href="<?=htmlProtect(getPagiForMessage($numpages, $ID))?>"><span aria-hidden="true">&raquo;</span></a> </li>
                 <?php endif ?>
-            </ul></nav></div>
+            </ul></nav></div> <?php endif ?>
     </div>
 </div>

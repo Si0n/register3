@@ -26,7 +26,7 @@ function getPaginatorLink($page, $order, $sort, $search = FALSE)
 }
 function getPagiForMessage($page, $id)
 {
-    $link_start = 'index.php?';
+    $link_start = 'inspect.php?';
     $link = array(
         'ID' => $id,
         'pmess' => $page
@@ -34,6 +34,7 @@ function getPagiForMessage($page, $id)
     $pageLinker = $link_start . http_build_query($link);
     return $pageLinker;
 }
+
 
 
 

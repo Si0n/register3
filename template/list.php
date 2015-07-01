@@ -8,7 +8,7 @@
         <? elseif ($tablePanelHeadingText == TAB_HEADER_ALL_STUDENTS_REQUEST) : ?>
     <div class="panel-heading">Список всех зарегистрированных студентов. Найдено результатов: <?=htmlProtect($count) ?>.</div>
         <? elseif ($tablePanelHeadingText == TAB_HEADER_SOME_STUDENTS_REQUEST):?>
-    <div class="panel-heading">Показаны только абитуриенты, найденные по запросу «<?=htmlProtect($search) ?>». Количество найденных результатов: <?=htmlProtect($count) ?>. <a href="index.php?page=list"><span class="badge">Показать всех студентов</span></a></div>
+    <div class="panel-heading">Показаны только абитуриенты, найденные по запросу «<?=htmlProtect($search) ?>». Количество найденных результатов: <?=htmlProtect($count) ?>. <a href="list.php"><span class="badge">Показать всех студентов</span></a></div>
         <? endif?>
     <div class="panel-body">
     </div>
@@ -65,7 +65,7 @@
         </tr>
         <?php foreach ($students as $number=>$student): ?>
             <tr>
-                <td><a href="index.php?ID=<?=htmlProtect($student->getID())?>"><span class="badge"><?=htmlProtect($student->getName()) ?></span></a></td>
+                <td><a href="inspect.php?ID=<?=htmlProtect($student->getID())?>"><span class="badge"><?=htmlProtect($student->getName()) ?></span></a></td>
                 <td><?=htmlProtect($student->getSurname()) ?></td>
                 <td><?=htmlProtect($student->getShowSex()) ?></td>
                 <td><?=htmlProtect($student->getGroupNumber()) ?></td>

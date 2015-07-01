@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 26 2015 г., 12:47
+-- Время создания: Июл 01 2015 г., 11:13
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS `Students` (
   `password` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID_2` (`ID`),
-  KEY `ID` (`ID`)
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=447 ;
 
 --

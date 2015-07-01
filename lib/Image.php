@@ -1,6 +1,7 @@
 <?php
 class Image
 {
+    protected $maxImageSize = 200000;
     public function isImageBroken($image)
     {
         if ($image["error"] == UPLOAD_ERR_NO_FILE) { //фото не загружено, функция завершается с false
@@ -38,7 +39,11 @@ class Image
             return $message;
         } else {
             $imageInfo = getimagesize($image['tmp_name']);
-            if ((($imageInfo["mime"] != "image/gif") || ($image["photo"]["type"] != "image/jpeg") || ($image["photo"]["type"] != "image/pjpeg") || ($image["photo"]["type"] != "image/png")) && ($image["size"] > 200000)) //проверка расширения файла, и размера
+            if ((($imageInfo["mime"] != "image/gif") ||
+                    ($image["photo"]["type"] != "image/jpeg") ||
+                    ($image["photo"]["type"] != "image/pjpeg") ||
+                    ($image["photo"]["type"] != "image/png")) &&
+                ($image["size"] > $this->maxImageSize)) //проверка расширения файла, и размера
             {
                 return "Неподходящий формат или размер фотографии";
 
@@ -49,12 +54,8 @@ class Image
 
     public function makeNewNameOfPhoto($ID)
     {
-        $baseName = '-photo-';
-        do {
-            $randomNumber = mt_rand(100000, 999999);
-        }
-        while (file_exists("upload/" . $ID . $baseName . $randomNumber. '.jpg'));// проверка существования на сервере
-        $newName = $ID . $baseName . $randomNumber. '.jpg';
+        $baseName = '-photo';
+        $newName = $ID . $baseName . '.jpg';
         return $newName;
     }
 
@@ -63,41 +64,44 @@ class Image
         $src = 'upload/'. $name;
         $dest = 'upload/'.'cr-'.$name;
        move_uploaded_file($image["tmp_name"], $src);
-        $this->img_resize($src, $dest, 200, 200);
+       if  ($this->img_resize($src, $dest, 200, 200))
+       {
+           return TRUE;
+       } else return FALSE;
     }
     public function img_resize($src, $dest, $width, $height, $rgb=0xFFFFFF, $quality=95)
     {
-        if (!file_exists($src)) return false;
+        if (file_exists($src)) {
+            $size = getimagesize($src);
 
-        $size = getimagesize($src);
+            if ($size === false) return false;
+            $format = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
+            $icfunc = "imagecreatefrom" . $format;
+            if (!function_exists($icfunc)) return false;
 
-        if ($size === false) return false;
-        $format = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
-        $icfunc = "imagecreatefrom" . $format;
-        if (!function_exists($icfunc)) return false;
+            $x_ratio = $width / $size[0];
+            $y_ratio = $height / $size[1];
 
-        $x_ratio = $width / $size[0];
-        $y_ratio = $height / $size[1];
+            $ratio       = min($x_ratio, $y_ratio);
+            $use_x_ratio = ($x_ratio == $ratio);
 
-        $ratio       = min($x_ratio, $y_ratio);
-        $use_x_ratio = ($x_ratio == $ratio);
+            $new_width   = $use_x_ratio  ? $width  : floor($size[0] * $ratio);
+            $new_height  = !$use_x_ratio ? $height : floor($size[1] * $ratio);
+            $new_left    = $use_x_ratio  ? 0 : floor(($width - $new_width) / 2);
+            $new_top     = !$use_x_ratio ? 0 : floor(($height - $new_height) / 2);
 
-        $new_width   = $use_x_ratio  ? $width  : floor($size[0] * $ratio);
-        $new_height  = !$use_x_ratio ? $height : floor($size[1] * $ratio);
-        $new_left    = $use_x_ratio  ? 0 : floor(($width - $new_width) / 2);
-        $new_top     = !$use_x_ratio ? 0 : floor(($height - $new_height) / 2);
+            $isrc =  $icfunc($src);
 
-        $isrc =  $icfunc($src);
+            $idest = imagecreatetruecolor($width, $height);
 
-        $idest = imagecreatetruecolor($width, $height);
-
-        imagefill($idest, 0, 0, $rgb);
-        imagecopyresampled($idest, $isrc, $new_left, $new_top, 0, 0,
-            $new_width, $new_height, $size[0], $size[1]);
-        imagejpeg($idest, $dest, $quality);
-        imagedestroy($isrc);
-        imagedestroy($idest);
-        return true;
+            imagefill($idest, 0, 0, $rgb);
+            imagecopyresampled($idest, $isrc, $new_left, $new_top, 0, 0,
+                $new_width, $new_height, $size[0], $size[1]);
+            imagejpeg($idest, $dest, $quality);
+            imagedestroy($isrc);
+            imagedestroy($idest);
+            return TRUE;
+        } return FALSE;
     }
 
 

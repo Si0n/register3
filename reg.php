@@ -2,6 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 1);
 require './scripts/ini.php';
+$include = 'registration';
 if (isset($_POST['submit'])) {
     if (isset($_COOKIE['password'])) {
         $cookiePass = $_COOKIE['password'];
@@ -42,5 +43,5 @@ if (isset($_POST['submit'])) {
         }
         header('Location: index.php?register=ok');
     }
-    require 'template/edit.php';
 }
+require 'template/edit.php';

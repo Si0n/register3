@@ -112,7 +112,7 @@ class StudentsMapper
                 $sql = "SELECT * FROM students WHERE Name
                         LIKE :string or Surname LIKE :string or GroupNumber
                         LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark
-                        LIKE :string ORDER BY $order $sort LIMIT $offset, 4"; // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
+                        LIKE :string ORDER BY $order $sort LIMIT $offset, $takeRes"; // or Surname LIKE :string or GroupNumber LIKE :string or Email LIKE :string or BirthDate LIKE :string or Mark LIKE :string
             }
             $srchStudents = $this->db->prepare($sql);
             $reg          = "%$string%";

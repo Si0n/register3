@@ -46,23 +46,7 @@ if (isset($_GET['register']))
     }
 
 }
-
-$include = isset($_GET['page'])   ?  $_GET['page'] : 'main' ;
+$include = '';
 $ID = isset($_GET['ID'])   ?  $_GET['ID'] : '' ;
 $err =  isset($_GET['err'])   ? 'Вы ничего не ввели, либо использовали недопустимые символы' : FALSE ;
-if ($ID != '')
-{
-   if ($ID == 'self') {
-       $ID = $student->getID();
-   }
-    $profileByID = $db->findStudentByID($ID);
-    if ($profileByID)
-    {
-        $include = 'inspect';
-    }
-}
 $search = '';
-if (isset($_GET['search'])) {
-    $include = 'list';
-    include_once('./scripts/list_action.php');
-}
