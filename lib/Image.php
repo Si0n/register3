@@ -4,54 +4,51 @@ class Image
     protected $maxImageSize = 200000;
     public function isImageBroken($image)
     {
-        if ($image["error"] == UPLOAD_ERR_NO_FILE) { //фото не загружено, функция завершается с false
-            return FALSE;
-        }
-        if ($image["error"] != UPLOAD_ERR_OK) //сохранить ошибку
+        $message = FALSE;
+        $photo_errors = $image["error"];
+        if ($photo_errors > 0)
         {
-            $photo_errors = $image["error"];
-            switch ($photo_errors) {
-                case UPLOAD_ERR_INI_SIZE:
-                    $message = "Размер принятого файла превысил максимально допустимый размер";
-                    break;
-                case UPLOAD_ERR_FORM_SIZE:
-                    $message = "Размер загружаемого файла превысил значение MAX_FILE_SIZE, указанное в HTML-форме";
-                    break;
-                case UPLOAD_ERR_PARTIAL:
-                    $message = "Загружаемый файл был получен только частично";
-                    break;
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    $message = "Отсутствует временная папка";
-                    break;
-                case UPLOAD_ERR_CANT_WRITE:
-                    $message = "Не удалось записать файл на диск";
-                    break;
-                case UPLOAD_ERR_EXTENSION:
-                    $message = "PHP-расширение остановило загрузку файла. PHP не предоставляет способа определить какое расширение остановило загрузку файла";
-                    break;
+        switch ($photo_errors) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = "Размер принятого файла превысил максимально допустимый размер";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = "Размер загружаемого файла превысил значение MAX_FILE_SIZE, указанное в HTML-форме";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $message = "Загружаемый файл был получен только частично";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message = " Файл не был загружен";
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = "Отсутствует временная папка";
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = "Не удалось записать файл на диск";
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $message = "PHP-расширение остановило загрузку файла. PHP не предоставляет способа определить какое расширение остановило загрузку файла";
+                break;
 
-                default:
-                    $message = "Unknown upload error";
-                    break;
-
-
-            }
-            return $message;
-        } else {
+            default:
+                $message = "Unknown upload error";
+                break;
+        }}
+        if (!$message){
             $imageInfo = getimagesize($image['tmp_name']);
             if ((($imageInfo["mime"] != "image/gif") ||
-                    ($image["photo"]["type"] != "image/jpeg") ||
-                    ($image["photo"]["type"] != "image/pjpeg") ||
-                    ($image["photo"]["type"] != "image/png")) &&
-                ($image["size"] > $this->maxImageSize)) //проверка расширения файла, и размера
+                    ($imageInfo["mime"] != "image/jpeg") ||
+                    ($imageInfo["mime"] != "image/pjpeg") ||
+                    ($imageInfo["mime"] != "image/png")) &&
+                ($image["size"] > $this->maxImageSize)
+            ) //проверка расширения файла, и размера
             {
-                return "Неподходящий формат или размер фотографии";
-
+                $message = "Неподходящий формат или размер фотографии";
             }
         }
-        return FALSE;
+        return $message;
     }
-
     public function makeNewNameOfPhoto($ID)
     {
         $baseName = '-photo';
@@ -103,20 +100,6 @@ class Image
             return TRUE;
         } return FALSE;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function showDefaultImage()
     {

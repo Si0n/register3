@@ -2,6 +2,10 @@
 <div class="row">
     <div class="col-md-12">
     <div class="col-md-3">
+        <?php if ($photoError) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?=$photoError ?> </div>
+        <?php endif?>
         <label><?= ($ID != $student->getID()) ? 'Фото:' : 'Ваше фото:' ?><br>
             <?php if ($profileByID->getPhoto() != '') : ?>
             <a href="upload/<?=$profileByID->getPhoto()?>"><img src="upload/cr-<?=$profileByID->getPhoto()?>"></a></label>
@@ -30,13 +34,8 @@
         <?php if ($errorForMessage) : ?>
             <div class="alert alert-warning" role="alert"><p><?=htmlProtect($errorForMessage) ?></p></div>
         <?php endif ?>
+        <?php require 'template/form_message.php' ?>
 
-        <form  action="inspect.php?ID=<?=htmlProtect($ID) ?>" method="post">
-            <input type="hidden" name="id_target" value="<?=htmlProtect($ID) ?>">
-            <input type="hidden" name="id_author" value="<?=htmlProtect($student->getID()) ?>">
-            <textarea class="form-control" rows="3" name="text" placeholder="Ваше сообщение"></textarea></p>
-            <button type="submit" name="submit" class="btn btn-info">Отправить сообщение</button>
-             </form>
         <br>
         <?php foreach ($messages as $message) : ?>
             <p class="bg-info"><?=htmlProtect($message->getDate()) ?> от:

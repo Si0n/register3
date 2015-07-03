@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
         } else {
             $db->updateStudent($student, $cookiePass);
         }
-        header('Location: index.php?register=ok');
+$register = TRUE;
     }
 }
 require 'template/edit.php';

@@ -2,12 +2,8 @@
 
 ?>
 <div class="well well-sm"><?=htmlProtect($headerMessage)?></div>
-<?php if (isset($registerMessage)) :
-    if ($register == 'ok') :?>
-<div class="alert alert-success" role="alert">
-    <?php else: ?>
-        <div class="alert alert-danger" role="alert">
-        <?php endif; ?><?=htmlProtect($registerMessage)?></div>
+<?php if ($register) :?>
+<div class="alert alert-success" role="alert">Вы успешно сохранили Ваши данные.</div>
 <?php endif ?>
        <nav class="navbar navbar-default">
         <div class="container-fluid">

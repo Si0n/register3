@@ -1,7 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 1);
-require './scripts/ini.php';
+require_once './scripts/ini.php';
 require './scripts/inspect_action.php';
 require './scripts/messages.php';
 $errorForMessage = FALSE;
@@ -13,7 +13,8 @@ if (isset($_POST['submit'])) {
     if ($message->isThisTextValid($text)) {
         $messenger->addMessage($id_author, $id_target, $text);
     } else {
-        $errorForMessage = 'Ваше сообщение содержит запрещенные символы';
+        $errorForMessage = 'Вы ничего не ввели, либо ваше сообщение содержит запрещенные символы';
     }
 }
+
 require 'template/inspect.php';

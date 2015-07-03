@@ -2,9 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 1);
 require './scripts/ini.php';
-if (isset($_POST['submit']))
-{
-if ($_FILES['photo']['size'] > 0)
+if (isset($_POST['submitPhoto']))
 {
     $loadedImage = $image->isImageBroken($_FILES['photo']);
     if (!$loadedImage)
@@ -14,15 +12,11 @@ if ($_FILES['photo']['size'] > 0)
         {
             $student->savePhoto($newPhotoName);
             $db->savePhoto($newPhotoName, $password);
-            header('Location: inspect.php?register=ok');
-            exit();
         }
+        $register = TRUE;
+    } else {
+        $photoError = $loadedImage;
     }
-}
-    header('Location: inspect.php?register=fail');
-    exit();
 
-} else {
-    header('Location: inspect.php');
-    exit();
 }
+require 'inspect.php';

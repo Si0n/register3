@@ -33,19 +33,8 @@ if (isset($_COOKIE['password'])) {
     $student->setFieldsWithWhiteSpaces();
     $password = '';
 }
-$successfulRegister = FALSE;
-if (isset($_GET['register']))
-{
-    $register = strval($_GET['register']);
-    if ($register== 'ok')
-    {
-        $registerMessage = 'Вы успешно сохранили Ваши данные.';
-    } elseif ($register == 'fail')
-    {
-        $registerMessage = 'Ошибка при загрузке фото.';
-    }
-
-}
+$photoError = FALSE; //ошибки по загрузке фото, которые в случае ошибок заполнятся в savePhoto.php, и выведутся в inspect.php
+$register = FALSE; // =>savePhoto.php, reg.php => TRUE = > обрабатывается в edit.php
 $include = '';
 $ID = isset($_GET['ID'])   ?  $_GET['ID'] : '' ;
 $err =  isset($_GET['err'])   ? 'Вы ничего не ввели, либо использовали недопустимые символы' : FALSE ;
