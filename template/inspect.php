@@ -8,14 +8,13 @@
         <?php endif?>
         <label><?= ($ID != $student->getID()) ? 'Фото:' : 'Ваше фото:' ?><br>
             <?php if ($profileByID->getPhoto() != '') : ?>
-            <a href="upload/<?=$profileByID->getPhoto()?>"><img src="upload/cr-<?=$profileByID->getPhoto()?>"></a></label>
+            <a href="upload/full-<?=$profileByID->getPhoto()?>"><img src="upload/cr-<?=$profileByID->getPhoto()?>"></a></label>
         <?php else :?>
             <img src="upload/default.jpg"></label>
         <?php endif ?>
         <?php if ($ID == $student->getID()) :
         include 'form_photo.php';
         endif;?>
-
     </div>
     <div class="col-md-4">
 <ul class="list-group">

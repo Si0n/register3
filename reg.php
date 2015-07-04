@@ -2,7 +2,7 @@
 error_reporting(-1);
 ini_set('display_errors', 1);
 require './scripts/ini.php';
-$include = 'registration';
+$mainActiveTab = MAIN_REGISTER_ACTIVE_TAB;
 if (isset($_POST['submit'])) {
     if (isset($_COOKIE['password'])) {
         $cookiePass = $_COOKIE['password'];

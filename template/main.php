@@ -22,20 +22,20 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <?php if ($password !='') : ?>
-                    <li <?= ($include == 'inspect') ? ' class="active" ' : '' ?>><a href="inspect.php"><?= ($ID != 'self') ? 'Просмотр профиля' : 'Мой профиль' ?></a></li>
-                    <li <?= ($include == 'registration') ? ' class="active" ' : '' ?>><a href="reg.php">Редактировать профиль<span class="sr-only">(current)</span></a></li>
+                    <li <?= ($mainActiveTab == MAIN_INSPECT_ACTIVE_TAB) ? ' class="active" ' : '' ?>><a href="inspect.php"><?= ($ID != 'self') ? 'Просмотр профиля' : 'Мой профиль' ?></a></li>
+                    <li <?= ($mainActiveTab == MAIN_REGISTER_ACTIVE_TAB) ? ' class="active" ' : '' ?>><a href="reg.php">Редактировать профиль<span class="sr-only">(current)</span></a></li>
                    <?php else : ?>
-                    <li <?= ($include == 'registration') ? ' class="active" ' : '' ?>><a href="reg.php">Регистрация</a></li>
+                    <li <?= ($mainActiveTab == MAIN_REGISTER_ACTIVE_TAB) ? ' class="active" ' : '' ?>><a href="reg.php">Регистрация</a></li>
 <?php endif ?>
                 </ul>
-                <form class="navbar-form navbar-left" role="search" method="get">
+                <form class="navbar-form navbar-left" role="search" action="list.php" method="get">
                     <div class="form-group">
                         <input type="text" class="form-control" name="search" placeholder="<?=htmlProtect(($search != '') ? $search : 'Поиск...') ?>">
                     </div>
                     <button type="submit" class="btn btn-default">Искать!</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li <?= ($include == 'list') ? ' class="active" ' : '' ?>><a href="list.php">Список абитуриентов</a></li>
+                    <li <?= ($mainActiveTab == MAIN_LIST_ACTIVE_TAB) ? ' class="active" ' : '' ?>><a href="list.php">Список абитуриентов</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

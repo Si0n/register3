@@ -1,5 +1,5 @@
 <?php
-$listTab = 'active';
+$mainActiveTab = MAIN_INSPECT_ACTIVE_TAB;
 $p =  isset($_GET['p'])   ? intval( $_GET['p'] ) : 1 ;
 $recordsPerPage = 4; //Количество результатов на страницу, для теста 4
 $offset = ($p -1) * $recordsPerPage;

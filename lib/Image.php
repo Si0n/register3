@@ -2,6 +2,10 @@
 class Image
 {
     protected $maxImageSize = 200000;
+    protected $imageWidth = 200;
+    protected $imageHeight = 200;
+    protected $imageRGB = 0xFFFFFF;
+    protected $imageQuality = 95;
     public function isImageBroken($image)
     {
         $message = FALSE;
@@ -58,44 +62,49 @@ class Image
 
     public function saveImage($image, $name)
     {
-        $src = 'upload/'. $name;
-        $dest = 'upload/'.'cr-'.$name;
+        $src = 'E:/OpenServer/domains/localhost/php/register3/upload/'. 'full-'.$name;
+        $dest = 'E:/OpenServer/domains/localhost/php/register3/upload/'.'cr-'.$name;
        move_uploaded_file($image["tmp_name"], $src);
        if  ($this->img_resize($src, $dest, 200, 200))
        {
            return TRUE;
        } else return FALSE;
     }
-    public function img_resize($src, $dest, $width, $height, $rgb=0xFFFFFF, $quality=95)
+    public function img_resize($src, $dest)
     {
         if (file_exists($src)) {
             $size = getimagesize($src);
 
-            if ($size === false) return false;
-            $format = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
-            $icfunc = "imagecreatefrom" . $format;
-            if (!function_exists($icfunc)) return false;
+            if ($size === FALSE)
+            {
+                return FALSE;
+            }
+            $extension = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
+            $imageCreateFrom = "imagecreatefrom" . $extension;
+            if (!function_exists($imageCreateFrom))
+            {
+                return FALSE;
+            }
 
-            $x_ratio = $width / $size[0];
-            $y_ratio = $height / $size[1];
+            $widthCompression = $this->imageWidth / $size[0];
+            $heightCompression = $this->imageHeight / $size[1];
 
-            $ratio       = min($x_ratio, $y_ratio);
-            $use_x_ratio = ($x_ratio == $ratio);
+            $compression       = min($widthCompression, $heightCompression);
+            $useWidthCompression = ($widthCompression == $compression);
 
-            $new_width   = $use_x_ratio  ? $width  : floor($size[0] * $ratio);
-            $new_height  = !$use_x_ratio ? $height : floor($size[1] * $ratio);
-            $new_left    = $use_x_ratio  ? 0 : floor(($width - $new_width) / 2);
-            $new_top     = !$use_x_ratio ? 0 : floor(($height - $new_height) / 2);
+            $newWidth   = $useWidthCompression  ? $this->imageWidth  : floor($size[0] * $compression);
+            $newHeight  = !$useWidthCompression ? $this->imageHeight : floor($size[1] * $compression);
+            $newLeftPosition    = $useWidthCompression  ? 0 : floor(($this->imageWidth - $newWidth) / 2);
+            $newTopPosition = !$useWidthCompression ? 0 : floor(($this->imageHeight - $newHeight) / 2);
 
-            $isrc =  $icfunc($src);
+            $image =  $imageCreateFrom($src);
 
-            $idest = imagecreatetruecolor($width, $height);
-
-            imagefill($idest, 0, 0, $rgb);
-            imagecopyresampled($idest, $isrc, $new_left, $new_top, 0, 0,
-                $new_width, $new_height, $size[0], $size[1]);
-            imagejpeg($idest, $dest, $quality);
-            imagedestroy($isrc);
+            $idest = imagecreatetruecolor($this->imageWidth, $this->imageHeight);
+            imagefill($idest, 0, 0, $this->imageRGB);
+            imagecopyresampled($idest, $image, $newLeftPosition, $newTopPosition, 0, 0,
+                $newWidth, $newHeight, $size[0], $size[1]);
+            imagejpeg($idest, $dest, $this->imageQuality);
+            imagedestroy($image);
             imagedestroy($idest);
             return TRUE;
         } return FALSE;

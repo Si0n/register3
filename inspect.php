@@ -16,5 +16,5 @@ if (isset($_POST['submit'])) {
         $errorForMessage = 'Вы ничего не ввели, либо ваше сообщение содержит запрещенные символы';
     }
 }
-
+$mainActiveTab = MAIN_INSPECT_ACTIVE_TAB;
 require 'template/inspect.php';

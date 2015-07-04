@@ -12,6 +12,8 @@ if (isset($_POST['submitPhoto']))
         {
             $student->savePhoto($newPhotoName);
             $db->savePhoto($newPhotoName, $password);
+        } else {
+            $photoError = 'Ошибка при сохранении фотографии.';
         }
         $register = TRUE;
     } else {
