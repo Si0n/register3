@@ -1,2 +1,2 @@
 **Students site**
-First tries to made a project using OOP.
+First try to make a project using OOP.
